@@ -1,7 +1,8 @@
 import { useState } from 'react'
+import { ConsentObjectDataType, ConsentObjectType, CookifyProviderProps } from "../types";
 import Cookies from 'js-cookie'
 
-export const useCookify = (options) => {
+export const useCookify = (options: CookifyProviderProps.Options) => {
     /**
      * Initializing the data
      */
@@ -10,13 +11,15 @@ export const useCookify = (options) => {
         saveWithChange: options.saveWithChange || false,
         saveByDefault: options.saveByDefault || false,
         cookieDefault: options.cookieDefault || 'necessary',
-        consentObject: () => {
-            const newConsentObject = new Object,
-                newConsentDataObject = new Object
+        consentObject: (): ConsentObjectType => {
+            const newConsentObject = {
+                viewed: false,
+                data: {
+                    [_this.cookieDefault]: true,
+                },
+            }, newConsentDataObject = options.type || {}
 
-            newConsentObject['viewed'] = false
-            newConsentDataObject[_this.cookieDefault] = true
-            newConsentObject['data'] = Object.assign(newConsentDataObject, options.type || {})
+            newConsentObject['data'] = Object.assign(newConsentObject.data, newConsentDataObject)
 
             return newConsentObject
         },
@@ -33,9 +36,9 @@ export const useCookify = (options) => {
     /**
      * Read the saved data
      * 
-     * @returns data
+     * @returns {ConsentObjectType | boolean}
      */
-    const getMemoryData = () => {
+    const getMemoryData = (): ConsentObjectType | boolean => {
         const cookie = _this.jscookie.get(_this.name)
 
         if (typeof cookie !== 'undefined') {
@@ -48,9 +51,9 @@ export const useCookify = (options) => {
     /**
      * Set the data
      * 
-     * @param data
+     * @param {ConsentObjectType} tempConsentObject
      */
-    const setMemoryData = (tempConsentObject = consentObject) => {
+    const setMemoryData = (tempConsentObject: ConsentObjectType = consentObject) => {
         _this.jscookie.set(
             _this.name,
             btoa(JSON.stringify(tempConsentObject))
@@ -63,32 +66,24 @@ export const useCookify = (options) => {
     const setMemoryDataWithChange = () => {
         if (_this.saveWithChange === true) {
             setMemoryData()
-            handleConsentTrackingChange(true)
+            handleConsentTrackingChange()
         }
-    }
-
-    /**
-     * Get a cookie state
-     * 
-     * @param {string} type 
-     */
-    const getDataState = (type) => {
-        return consentObject.data[type]
     }
 
     /**
      * Changes the cookie state and saves the data
      * 
      * @param {string} type 
-     * @param {boolean} value 
-     * @returns {boolean} 
+     * @param {boolean} value
      */
-    const changeDataState = (type, value) => {
-        const newConsentObjectData = consentObject.data
+    const changeDataState = (type: string, value: boolean) => {
+        const newConsentObjectViewed: boolean = consentObject.viewed
+        const newConsentObjectData: ConsentObjectDataType = consentObject.data
 
         newConsentObjectData[type] = value
 
         handleConsentObjectChange({
+            viewed: newConsentObjectViewed,
             data: newConsentObjectData
         })
         setMemoryDataWithChange()
@@ -101,13 +96,13 @@ export const useCookify = (options) => {
     /**
      * Executed after some actions
      * 
-     * @param {object} newConsentObject 
+     * @param {ConsentObjectType} newConsentObject 
      */
-    const afterSomeActions = (newConsentObject) => {
+    const afterSomeActions = (newConsentObject: ConsentObjectType) => {
         handleConsentObjectChange(newConsentObject)
         setMemoryData()
         handleConsentDisplayedChange(false)
-        handleConsentTrackingChange(true)
+        handleConsentTrackingChange()
     }
 
     /**
@@ -115,7 +110,7 @@ export const useCookify = (options) => {
      * 
      * @param {string} type
      */
-    const actionCheckbox = (type) => {
+    const actionCheckbox = (type: string) => {
         changeDataState(type, !consentObject.data[type])
         setMemoryDataWithChange()
     }
@@ -124,8 +119,11 @@ export const useCookify = (options) => {
      * Event on action accept click
      */
     const actionAccept = () => {
+        const newConsentObjectData = consentObject.data
+
         afterSomeActions({
-            viewed: true
+            viewed: true,
+            data: newConsentObjectData
         })
     }
     
@@ -166,10 +164,10 @@ export const useCookify = (options) => {
     }
 
     /* Check if the memory data is set and use it or create new */
-    var memoryData = getMemoryData()
-    var tempConsentObject = _this.consentObject()
+    const memoryData: ConsentObjectType | boolean = getMemoryData()
+    const tempConsentObject: ConsentObjectType = _this.consentObject()
 
-    if (memoryData === false) {
+    if (typeof memoryData !== 'boolean') {
         setMemoryData(tempConsentObject)
     } else {
         tempConsentObject['viewed'] = memoryData.viewed
@@ -186,14 +184,14 @@ export const useCookify = (options) => {
     /* Create state for consent tracking */
     const [consentTracking, setConsentTracking] = useState(0)
 
-    const handleConsentObjectChange = (newConsentObject) => {
+    const handleConsentObjectChange = (newConsentObject: ConsentObjectType) => {
         setConsentObject(prevConsentObject => ({
             ...prevConsentObject,
             newConsentObject
         }))
     }
 
-    const handleConsentDisplayedChange = (newConsentDisplayed) => {
+    const handleConsentDisplayedChange = (newConsentDisplayed: boolean) => {
         setConsentDisplayed(newConsentDisplayed)
     }
 
