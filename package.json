@@ -1,0 +1,33 @@
+{
+  "name": "react-cookify",
+  "version": "0.1.0-beta.1",
+  "description": "Simple, customizable open source cookie consent banner for GDPR law",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jersyfi/react-cookify.git"
+  },
+  "keywords": [
+    "Cookify",
+    "GDPR",
+    "Cookie Consent",
+    "Cookie",
+    "Banner",
+    "Javascript",
+    "Bootstrap"
+  ],
+  "author": "Jérôme Bastian Winkel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jersyfi/react-cookify/issues"
+  },
+  "homepage": "https://github.com/jersyfi/react-cookify#readme",
+  "dependencies": {
+    "js-cookie": "^3.0.1"
+  },
+  "devDependencies": {
+    
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  }
+}
