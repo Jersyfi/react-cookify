@@ -13,7 +13,7 @@ export const CookifyContext = createContext<CookifyContextProps>({
     actionAll: () => {/* do nothing */},
 });
 
-export const CookifyProvider = ({options, children}: { options: CookifyProviderProps.Options, children: CookifyProviderProps.Children }) => {
+export const CookifyProvider = ({options, children}: CookifyProviderProps) => {
     CookifyContext.Consumer;
 
     const {

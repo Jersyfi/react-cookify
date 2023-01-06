@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { ConsentObjectDataType, ConsentObjectType, CookifyProviderProps } from "../types";
+import { CookifyOptionsType, ConsentObjectDataType, ConsentObjectType } from "../types";
 import Cookies from 'js-cookie'
 
-export const useCookify = (options: CookifyProviderProps.Options) => {
+export const useCookify = (options: CookifyOptionsType) => {
     /**
      * Initializing the data
      */
@@ -167,14 +167,14 @@ export const useCookify = (options: CookifyProviderProps.Options) => {
     const memoryData: ConsentObjectType | boolean = getMemoryData()
     const tempConsentObject: ConsentObjectType = _this.consentObject()
 
-    if (typeof memoryData !== 'boolean') {
-        setMemoryData(tempConsentObject)
-    } else {
+    if (typeof memoryData === 'object') {
         tempConsentObject['viewed'] = memoryData.viewed
 
         for (const type in tempConsentObject.data) {
             tempConsentObject.data[type] = memoryData.data[type] ?? false
         }
+    } else {
+        setMemoryData(tempConsentObject)
     }
 
     /* Create state object for temporary memory data storage */

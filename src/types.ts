@@ -33,17 +33,21 @@ export interface CookifyContextProps {
 /**
  * ?
  */
-export namespace CookifyProviderProps {
-    export interface Options {
-        name: string,
-        saveWithChange?: boolean,
-        saveByDefault?: boolean,
-        cookieDefault?: string,
-        type?: ConsentObjectDataType,
-        jscookie?: CookieAttributes
-    }
+export type CookifyOptionsType = {
+    name: string,
+    saveWithChange?: boolean,
+    saveByDefault?: boolean,
+    cookieDefault?: string,
+    type?: ConsentObjectDataType,
+    jscookie?: CookieAttributes
+}
 
-    export type Children = ReactNode
+/**
+ * ?
+ */
+export interface CookifyProviderProps {
+    options: CookifyOptionsType,
+    children: ReactNode
 }
 
 /**
