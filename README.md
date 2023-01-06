@@ -36,7 +36,7 @@ View the test file live on GitHub Pages and get in touch with Cookify. The test 
 
 ### Get started
 
-To start with that project you can simple install `react-ookify` with npm.
+To start with that project you can simple install `react-cookify` with npm.
 
 ```bash
 npm install react-cookify
