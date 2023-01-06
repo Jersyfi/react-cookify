@@ -2,14 +2,21 @@ import { ReactNode } from "react";
 import { CookieAttributes } from "js-cookie";
 
 /**
- * ?
+ * Type for the ConsentObjectData
+ * 
+ * @type ConsentObjectDataType
+ * @member {boolean} [key: string]
  */
 export type ConsentObjectDataType = {
     [key: string]: boolean
 }
 
 /**
- * ?
+ * Type for the consentObject
+ * 
+ * @type ConsentObjectType
+ * @member {boolean} viewed
+ * @member {ConsentObjectDataType} data
  */
 export type ConsentObjectType = {
     viewed: boolean,
@@ -17,7 +24,17 @@ export type ConsentObjectType = {
 }
 
 /**
- * ?
+ * Props for the CookifyContext
+ * 
+ * @interface CookifyContextProps
+ * @member {ConsentObjectType} consentObject
+ * @member {boolean} consentDisplayed
+ * @member {function} handleConsentDisplayedChange
+ * @member {number} consentTracking
+ * @member {function} actionCheckbox
+ * @member {function} actionAccept
+ * @member {function} actionNecessary
+ * @member {function} actionAll
  */
 export interface CookifyContextProps {
     consentObject: ConsentObjectType,
@@ -31,7 +48,15 @@ export interface CookifyContextProps {
 }
 
 /**
- * ?
+ * Type for the options in useCookify
+ * 
+ * @type CookifyOptionsType
+ * @member {string} name
+ * @member {boolean} saveWithChange
+ * @member {boolean} saveByDefault
+ * @member {string} cookieDefault
+ * @member {ConsentObjectDataType} type
+ * @member {CookieAttributes} jscookie
  */
 export type CookifyOptionsType = {
     name: string,
@@ -43,7 +68,11 @@ export type CookifyOptionsType = {
 }
 
 /**
- * ?
+ * Props for the CookifyProvider
+ * 
+ * @interface CookifyProviderProps
+ * @member {CookifyOptionsType} options
+ * @member {ReactNode} children
  */
 export interface CookifyProviderProps {
     options: CookifyOptionsType,
@@ -52,6 +81,9 @@ export interface CookifyProviderProps {
 
 /**
  * Props for CookifyInput Component
+ * 
+ * @interface CookifyInputProps
+ * @member {string} name
  */
 export interface CookifyInputProps {
     name: string
