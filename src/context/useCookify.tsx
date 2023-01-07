@@ -7,15 +7,15 @@ export const useCookify = (options: CookifyOptionsType) => {
      * Initializing the data
      */
     const _this = {
-        name: options.name || 'cookify',
+        name: options.name || 'cookify-consent',
         saveWithChange: options.saveWithChange || false,
         saveByDefault: options.saveByDefault || false,
-        cookieDefault: options.cookieDefault || 'necessary',
+        typeDefault: options.typeDefault || 'necessary',
         consentObject: (): ConsentObjectType => {
             const newConsentObject = {
                 viewed: false,
                 data: {
-                    [_this.cookieDefault]: true,
+                    [_this.typeDefault]: true,
                 },
             }, newConsentDataObject = options.type || {}
 
@@ -134,7 +134,7 @@ export const useCookify = (options: CookifyOptionsType) => {
         const newConsentObjectData = consentObject.data
 
         for (const type in newConsentObjectData) {
-            if (type == _this.cookieDefault) {
+            if (type == _this.typeDefault) {
                 newConsentObjectData[type] = true
             } else {
                 newConsentObjectData[type] = false

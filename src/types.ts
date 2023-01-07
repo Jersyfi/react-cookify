@@ -54,15 +54,15 @@ export interface CookifyContextProps {
  * @member {string} name
  * @member {boolean} saveWithChange
  * @member {boolean} saveByDefault
- * @member {string} cookieDefault
+ * @member {string} typeDefault
  * @member {ConsentObjectDataType} type
  * @member {CookieAttributes} jscookie
  */
 export type CookifyOptionsType = {
-    name: string,
+    name?: string,
     saveWithChange?: boolean,
     saveByDefault?: boolean,
-    cookieDefault?: string,
+    typeDefault?: string,
     type?: ConsentObjectDataType,
     jscookie?: CookieAttributes
 }

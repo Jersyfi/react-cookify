@@ -42,6 +42,63 @@ To start with that project you can simple install `react-cookify` with npm.
 npm install react-cookify
 ```
 
+After that you need to import the `CookifyProvider` into your `_app.js` file. You also need to define the `options` in the `CookifyProvider` when you want to customize cookify. For that the below options are provided.
+
+```typescript
+/* Every option can be empty in the CookifyProvider */
+name?: string,
+saveWithChange?: boolean,
+saveByDefault?: boolean,
+cookieDefault?: string,
+type?: ConsentObjectDataType,
+jscookie?: CookieAttributes
+```
+
+For the above options are default values that makes it possible to pass the options.
+
+```typescript
+name: 'cookify-consent',
+saveWithChange: false,
+saveByDefault: false,
+typeDefault: 'necessary',
+type: {
+    /* if `cookieDefault` is empty, otherwise it will use the customized `typeDefault` */
+    necessary: true
+},
+jscookie: {
+    expires: 365,
+    path: '/',
+}
+```
+
+Now implement the `CookifyProvider` with or without your options in the `_app.js`.
+
+```javascript
+import '../styles/globals.css'
+import { CookifyProvider } from 'react-cookify'
+
+export default function App({ Component, pageProps }) {
+    return (
+        <CookifyProvider options={{
+            name: 'cookify-consent',
+            type: {
+                marketing: false,
+                statistics: false,
+                performance: false,
+            },
+            /* js-cookie options */
+            jscookie: {
+                expires: 365,
+                path: '/',
+                secure: true,
+            }
+        }}>
+            <Component {...pageProps} />
+        </CookifyProvider>
+    )
+}
+```
+
 **In progress...**
 
 ## Changelog
