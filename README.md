@@ -146,10 +146,10 @@ import { useEffect } from 'react'
 import { useCookifyProvider } from 'react-cookify'
 
 export default function CookifyContainer({ children }) {
-    const {consentTracking} = useCookifyProvider()
+    const {consentObject, consentTracking} = useCookifyProvider()
 
     useEffect(() => {
-        console.log('fetch()')
+        console.log('You can fetch this: ', consentObject)
     }, [consentTracking])
 
     return children
