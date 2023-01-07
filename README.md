@@ -10,8 +10,8 @@ This is a simple full customizable cookie consent for gdpr law. This library is 
 
 ### Live preview of Vanilla JS Version
 View the test file live on GitHub Pages and get in touch with Cookify. The test file used the Vanilla JS version. You can find the Vanilla JS repository [here](https://github.com/jersyfi/cookify).
-- [Bootstrap](https://jersyfi.github.io/Cookify/test/preview/bootstrap.html)
-- [Tailwind CSS](https://jersyfi.github.io/Cookify/test/preview/tailwindcss.html)
+- [Bootstrap](https://jersyfi.github.io/cookify/test/preview/bootstrap.html)
+- [Tailwind CSS](https://jersyfi.github.io/cookify/test/preview/tailwindcss.html)
 
 ## Documentation
 
