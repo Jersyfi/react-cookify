@@ -15,28 +15,16 @@ View the test file live on GitHub Pages and get in touch with Cookify. The test 
 - [Tailwind CSS](https://jersyfi.github.io/cookify/test/preview/tailwindcss.html)
 
 ## Documentation
-
 ### Get started
-
+#### Installation
 To start with that project you can simple install `react-cookify` with npm.
 
 ```bash
 npm install react-cookify
 ```
 
-After that you need to import the `CookifyProvider` into your `_app.js` file. You also need to define the `options` in the `CookifyProvider` when you want to customize cookify. For that the below options are provided.
-
-```typescript
-/* Every option can be empty in the CookifyProvider */
-name?: string,
-saveWithChange?: boolean,
-saveByDefault?: boolean,
-cookieDefault?: string,
-type?: ConsentObjectDataType,
-jscookie?: CookieAttributes
-```
-
-For the above options are default values that makes it possible to pass some of the options.
+#### Customization Options
+You can customize `CookifyProvider` with options. In the library i use [js-cookie](https://github.com/js-cookie/js-cookie) for handling cookies. In the options you can modify the attributes of js-cookie with `jscookie`. Below are all options with there default value.
 
 ```typescript
 name: 'cookify-consent',
@@ -47,13 +35,15 @@ type: {
     /* if `cookieDefault` is empty, otherwise it will use the customized `typeDefault` */
     necessary: true
 },
+/* js-cookie attributes */
 jscookie: {
     expires: 365,
     path: '/',
 }
 ```
 
-Now implement the `CookifyProvider` with or without your options in the `_app.js`.
+#### Initializing with `CookifyProvider`
+After that you need to import the `CookifyProvider` into your `_app.js` file. You also need to define the `options` in the `CookifyProvider` when you want to customize cookify.
 
 ```javascript
 import '../styles/globals.css'
@@ -62,13 +52,11 @@ import { CookifyProvider } from 'react-cookify'
 export default function App({ Component, pageProps }) {
     return (
         <CookifyProvider options={{
-            name: 'cookify-consent',
+            name: 'own-cookify-consent',
             type: {
                 marketing: false,
-                statistics: false,
                 performance: false,
             },
-            /* js-cookie options */
             jscookie: {
                 expires: 365,
                 path: '/',
@@ -81,7 +69,107 @@ export default function App({ Component, pageProps }) {
 }
 ```
 
-**In progress...**
+#### States & Functions of `useCookifyProvider`
+We can use states and functions with `useCookifyProvider`. Below are the states and functions you can use.
+
+```typescript
+/* ConsentObjectType => { viewed: boolean, data: { [key: string]: boolean } } */
+consentObject: ConsentObjectType,
+consentDisplayed: boolean,
+handleConsentDisplayedChange: (newConsentDisplayed: boolean) => void,
+consentTracking: number,
+actionCheckbox: (type: string) => void,
+actionAccept: () => void,
+actionNecessary: () => void,
+actionAll: () => void,
+```
+
+#### Handling Consent with `useCookifyProvider` & `CookifyInput`
+Now as an example we add the code to the `index.js` file but you can put it wherever you prefer.
+
+```javascript
+import { useEffect, useState } from 'react'
+import { useCookifyProvider, CookifyInput } from 'react-cookify'
+
+export default function Home() {
+    const {consentDisplayed, handleConsentDisplayedChange, actionAccept, actionNecessary, actionAll} = useCookifyProvider()
+    const [displayedClass, setDisplayedClass] = useState('')
+
+    /* CSS not provided in example */
+    const handleToggle = () => {
+        if (consentDisplayed) {
+            setDisplayedClass('block') // block => display: block
+        } else {
+            setDisplayedClass('hidden') // hidden => display: none
+        }
+    }
+
+    useEffect(() => {
+        handleToggle()
+    }, [consentDisplayed])
+
+    return (
+        <>
+            <button onClick={() => handleConsentDisplayedChange(true)}>
+                Open Modal
+            </button>
+
+            <div className={displayedClass}>
+                <div>
+                    <CookifyInput type="checkbox" name="necessary" id="necessary" disabled />
+                    <label htmlFor="necessary">Necessary</label>
+
+                    <CookifyInput type="checkbox" name="marketing" id="marketing" />
+                    <label htmlFor="marketing">Marketing</label>
+
+                    <CookifyInput type="checkbox" name="performance" id="performance" />
+                    <label htmlFor="performance">Performance</label>
+                </div>
+
+                <div>
+                    <button onClick={actionAll}>All</button>
+                    <button onClick={actionAccept}>Accept</button>
+                    <button onClick={actionNecessary}>Necessary</button>
+                </div>
+            </div>
+        </>
+    )
+}
+```
+
+#### Tracking
+It is possible to track the activity of the accepted cookies. For the example i created a container named `cookifyContainer.js` that i put in the `_app.js`.
+
+```javascript
+/* cookifyContainer.js */
+import { useEffect } from 'react'
+import { useCookifyProvider } from 'react-cookify'
+
+export default function CookifyContainer({ children }) {
+    const {consentTracking} = useCookifyProvider()
+
+    useEffect(() => {
+        console.log('fetch()')
+    }, [consentTracking])
+
+    return children
+}
+
+/* _app.js */
+import '../styles/globals.css'
+import { CookifyProvider } from 'react-cookify'
+import CookifyContainer from '../components/CookifyContainer'
+
+export default function App({ Component, pageProps }) {
+    return (
+        <CookifyProvider options={...}>
+            <CookifyContainer>
+                <Component {...pageProps} />
+            </CookifyContainer>
+        </CookifyProvider>
+    )
+}
+```
 
 ## Framework Support & Features
 You can view all library languages and supported features [here](https://github.com/Jersyfi/cookify#framework-support--features).
