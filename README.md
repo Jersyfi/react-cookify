@@ -6,26 +6,7 @@
 ![GitHub License](https://img.shields.io/github/license/jersyfi/react-cookify)
 
 ## General info
-This is a simple full customizable cookie consent banner for gdpr law. This library is build on pure javascript for easy customization. You can choose your own CSS Framework, your own styles and only need to define query selectors.
-
-| Framework  | State      | Repository                                                         |
-| :---       | :---       | :---                                                               |
-| Vanilla JS | Production | [@Jersyfi/cookify](https://github.com/Jersyfi/Cookify)             |
-| React      | Dev        | [@Jersyfi/react-cookify](https://github.com/Jersyfi/react-cookify) |
-| Vue.js     | Planned    | -                                                                  |
-
-| Frameworks /<br> Features | Vanilla JS | React | Vue.js |
-| :---                      | :---: | :---: | :---: |
-| Headless                  | ✅ | ✅ | ❌ |
-| Customizable              | ✅ | ✅ | ❌ |
-| Tracking                  | ✅ | ✅ | ❌ |
-| Storage: *Cookies*        | ✅ | ✅ | ❌ |
-| Storage: *Local Storage*  | ✅ | ✅ | ❌ |
-| Managing: *Script* [^1]   | ✅ | ❌ | ❌ |
-| Managing: *Img* [^1]      | ✅ | ❌ | ❌ |
-| Managing: *iframe* [^1]   | ✅ | ❌ | ❌ |
-
-[^1]: Only in Vanilla JS the support is integrated because in Framworks like React you can do it with the state `consentObject`
+This is a simple full customizable cookie consent for gdpr law. This library is build for react and easy customization. You can choose your own CSS Framework, own styles and only need to define options and implement simple code into your react app.
 
 ### Live preview of Vanilla JS Version
 View the test file live on GitHub Pages and get in touch with Cookify. The test file used the Vanilla JS version. You can find the Vanilla JS repository [here](https://github.com/jersyfi/cookify).
@@ -54,7 +35,7 @@ type?: ConsentObjectDataType,
 jscookie?: CookieAttributes
 ```
 
-For the above options are default values that makes it possible to pass the options.
+For the above options are default values that makes it possible to pass some of the options.
 
 ```typescript
 name: 'cookify-consent',
@@ -100,6 +81,9 @@ export default function App({ Component, pageProps }) {
 ```
 
 **In progress...**
+
+## Framework Support & Features
+You can view all library languages and supported features [here](https://github.com/Jersyfi/cookify#framework-support--features).
 
 ## Changelog
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
