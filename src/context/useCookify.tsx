@@ -61,35 +61,6 @@ export const useCookify = (options: CookifyOptionsType) => {
     }
 
     /**
-     * Set memory data with change
-     */
-    const setMemoryDataWithChange = () => {
-        if (_this.saveWithChange === true) {
-            setMemoryData()
-            handleConsentTrackingChange()
-        }
-    }
-
-    /**
-     * Changes the cookie state and saves the data
-     * 
-     * @param {string} type 
-     * @param {boolean} value
-     */
-    const changeDataState = (type: string, value: boolean) => {
-        const newConsentObjectViewed: boolean = consentObject.viewed
-        const newConsentObjectData: ConsentObjectDataType = consentObject.data
-
-        newConsentObjectData[type] = value
-
-        handleConsentObjectChange({
-            viewed: newConsentObjectViewed,
-            data: newConsentObjectData
-        })
-        setMemoryDataWithChange()
-    }
-
-    /**
      * Event Listeners
      */
 
@@ -111,8 +82,20 @@ export const useCookify = (options: CookifyOptionsType) => {
      * @param {string} type
      */
     const actionCheckbox = (type: string) => {
-        changeDataState(type, !consentObject.data[type])
-        setMemoryDataWithChange()
+        const newConsentObjectViewed: boolean = consentObject.viewed
+        const newConsentObjectData: ConsentObjectDataType = consentObject.data
+
+        newConsentObjectData[type] = !consentObject.data[type]
+
+        handleConsentObjectChange({
+            viewed: newConsentObjectViewed,
+            data: newConsentObjectData
+        })
+
+        if (_this.saveWithChange === true) {
+            setMemoryData()
+            handleConsentTrackingChange()
+        }
     }
 
     /**
@@ -185,10 +168,7 @@ export const useCookify = (options: CookifyOptionsType) => {
     const [consentTracking, setConsentTracking] = useState(0)
 
     const handleConsentObjectChange = (newConsentObject: ConsentObjectType) => {
-        setConsentObject(prevConsentObject => ({
-            ...prevConsentObject,
-            newConsentObject
-        }))
+        setConsentObject(newConsentObject)
     }
 
     const handleConsentDisplayedChange = (newConsentDisplayed: boolean) => {

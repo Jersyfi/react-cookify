@@ -2,6 +2,14 @@
 
 All notable changes to `react-cookify` will be documented in this file.
 
+## v0.3.4-beta.1 - 2022-01-08
+
+- Bump @rollup/plugin-typescript from 10.0.1 to 11.0.0
+- Removed `changeDataState()` and directly integrated the code in `actionCheckbox()`
+- Removed `setMemoryDataWithChange()` and directly integrated the code in `actionCheckbox()`
+- Added script `build:watch` for development
+- Modified `handleConsentObjectChange()` to fix the issue of [#2](https://github.com/Jersyfi/react-cookify/issues/2)
+
 ## v0.2.1-beta.1 - 2022-01-07
 
 - Added `@rollup/plugin-terser` to minify and compress the code in build process
