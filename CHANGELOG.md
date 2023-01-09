@@ -2,6 +2,12 @@
 
 All notable changes to `react-cookify` will be documented in this file.
 
+## v0.4.4-beta.1 - In progress...
+
+* Added Web Storage API Support for the local storage
+* Added `store` in `options` Object to choose between HTML cookies and Web Storage API
+* Modified `getMemoryData()` and `setMemoryData()` to match the `store` in `options`
+
 ## v0.3.4-beta.1 - 2022-01-08
 
 * Bump @rollup/plugin-typescript from 10.0.1 to 11.0.0

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { CookifyOptionsType, ConsentObjectDataType, ConsentObjectType } from "../types";
 import Cookies from 'js-cookie'
 
@@ -8,6 +8,7 @@ export const useCookify = (options: CookifyOptionsType) => {
      */
     const _this = {
         name: options.name || 'cookify-consent',
+        store: options.store || 'cookies',
         saveWithChange: options.saveWithChange || false,
         saveByDefault: options.saveByDefault || false,
         typeDefault: options.typeDefault || 'necessary',
@@ -46,6 +47,32 @@ export const useCookify = (options: CookifyOptionsType) => {
         }
 
         return false
+
+        /*switch (_this.store) {
+            case 'storage': {
+                let storage
+
+                if (typeof window !== 'undefined') {
+                    storage = localStorage.getItem(_this.name)
+                }
+
+                if (typeof storage === 'string') {
+                    return JSON.parse(atob(storage))
+                }
+
+                return false
+            }
+            case 'cookies': // cookies is the default value
+            default: {
+                const cookie = _this.jscookie.get(_this.name)
+
+                if (typeof cookie !== 'undefined') {
+                    return JSON.parse(atob(cookie))
+                }
+
+                return false
+            }
+        }*/
     }
 
     /**
@@ -58,6 +85,22 @@ export const useCookify = (options: CookifyOptionsType) => {
             _this.name,
             btoa(JSON.stringify(tempConsentObject))
         )
+
+        /*const tempConsentObjectString: string = btoa(JSON.stringify(tempConsentObject))
+
+        switch (_this.store) {
+            case 'storage': {
+                if (typeof window !== 'undefined') {
+                    localStorage.setItem(_this.name, tempConsentObjectString)
+                }
+                break;
+            }
+            case 'cookies': // cookies is the default value
+            default: {
+                _this.jscookie.set(_this.name, tempConsentObjectString)
+                break;
+            }
+        }*/
     }
 
     /**
@@ -146,29 +189,20 @@ export const useCookify = (options: CookifyOptionsType) => {
         })
     }
 
-    /* Check if the memory data is set and use it or create new */
-    const memoryData: ConsentObjectType | boolean = getMemoryData()
-    const tempConsentObject: ConsentObjectType = _this.consentObject()
-
-    if (typeof memoryData === 'object') {
-        tempConsentObject['viewed'] = memoryData.viewed
-
-        for (const type in tempConsentObject.data) {
-            tempConsentObject.data[type] = memoryData.data[type] ?? false
-        }
-    } else {
-        setMemoryData(tempConsentObject)
-    }
-
     /* Create state object for temporary memory data storage */
-    const [consentObject, setConsentObject] = useState(tempConsentObject)
+    const [consentObject, setConsentObject] = useState(_this.consentObject())
     /* Create state for is consent displayed */
-    const [consentDisplayed, setConsentDisplayed] = useState(!tempConsentObject.viewed)
+    const [consentDisplayed, setConsentDisplayed] = useState(false)
     /* Create state for consent tracking */
     const [consentTracking, setConsentTracking] = useState(0)
 
     const handleConsentObjectChange = (newConsentObject: ConsentObjectType) => {
+        //console.log('handleConsentObjectChange: ', newConsentObject)
+        //something not working
+
         setConsentObject(newConsentObject)
+
+        console.log('after -> handleConsentObjectChange: ', consentObject)
     }
 
     const handleConsentDisplayedChange = (newConsentDisplayed: boolean) => {
@@ -179,10 +213,30 @@ export const useCookify = (options: CookifyOptionsType) => {
         setConsentTracking(consentTracking + 1)
     }
 
-    /* Save by default is saveByDefault if set to true */
-    if (_this.saveByDefault === true) {
-        setMemoryData()
-    }
+    /* Call only on first render */
+    useEffect(() => {
+        /* Check if the memory data is set and use it or create new */
+        const memoryData: ConsentObjectType | boolean = getMemoryData()
+        const tempConsentObject: ConsentObjectType = consentObject
+
+        if (typeof memoryData === 'object') {
+            tempConsentObject['viewed'] = memoryData.viewed
+
+            for (const type in tempConsentObject.data) {
+                tempConsentObject.data[type] = memoryData.data[type] ?? false
+            }
+        } else {
+            setMemoryData(tempConsentObject)
+        }
+
+        handleConsentObjectChange(tempConsentObject)
+        handleConsentDisplayedChange(!tempConsentObject.viewed)
+
+        /* Save by default is saveByDefault if set to true */
+        if (_this.saveByDefault === true) {
+            setMemoryData()
+        }
+    }, [])
 
     return {
         consentObject,

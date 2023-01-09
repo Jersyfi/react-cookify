@@ -60,6 +60,7 @@ export interface CookifyContextProps {
  */
 export type CookifyOptionsType = {
     name?: string,
+    store?: ['cookies', 'storage'],
     saveWithChange?: boolean,
     saveByDefault?: boolean,
     typeDefault?: string,
