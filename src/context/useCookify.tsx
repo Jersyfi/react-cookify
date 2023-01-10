@@ -177,16 +177,22 @@ export const useCookify = (options: CookifyOptionsType) => {
      * Event action accept all cick
      */
     const actionAll = () => {
-        const newConsentObjectData = consentObject.data
+        const newConsentObject = consentObject
 
         for (const type in consentObject.data) {
-            newConsentObjectData[type] = true
+            newConsentObject.data[type] = true
         }
 
-        afterSomeActions({
+        // Testing the error
+        /*afterSomeActions({
             viewed: true,
             data: newConsentObjectData
-        })
+        })*/
+
+        handleConsentObjectChange(newConsentObject)
+        setMemoryData()
+        handleConsentDisplayedChange(false)
+        handleConsentTrackingChange()
     }
 
     /* Create state object for temporary memory data storage */
