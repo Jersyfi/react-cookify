@@ -2,6 +2,11 @@
 
 All notable changes to `react-cookify` will be documented in this file.
 
+## v0.4.7-beta.1 - In progress...
+
+* Modified README to match `options.store` feature
+* ?
+
 ## v0.4.6-beta.1 - 2022-01-11
 
 * Added Web Storage API Support for the local storage

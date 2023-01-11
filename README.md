@@ -28,6 +28,7 @@ You can customize `CookifyProvider` with options. In the library i use [js-cooki
 
 ```typescript
 name: 'cookify-consent',
+storage: 'cookies', // you can choose between 'cookies' and 'storage'
 saveWithChange: false,
 saveByDefault: false,
 typeDefault: 'necessary',
