@@ -40,15 +40,7 @@ export const useCookify = (options: CookifyOptionsType) => {
      * @returns {ConsentObjectType | boolean}
      */
     const getMemoryData = (): ConsentObjectType | boolean => {
-        const cookie = _this.jscookie.get(_this.name)
-
-        if (typeof cookie !== 'undefined') {
-            return JSON.parse(atob(cookie))
-        }
-
-        return false
-
-        /*switch (_this.store) {
+        switch (_this.store) {
             case 'storage': {
                 let storage
 
@@ -72,7 +64,7 @@ export const useCookify = (options: CookifyOptionsType) => {
 
                 return false
             }
-        }*/
+        }
     }
 
     /**
@@ -81,12 +73,7 @@ export const useCookify = (options: CookifyOptionsType) => {
      * @param {ConsentObjectType} tempConsentObject
      */
     const setMemoryData = (tempConsentObject: ConsentObjectType = consentObject) => {
-        _this.jscookie.set(
-            _this.name,
-            btoa(JSON.stringify(tempConsentObject))
-        )
-
-        /*const tempConsentObjectString: string = btoa(JSON.stringify(tempConsentObject))
+        const tempConsentObjectString: string = btoa(JSON.stringify(tempConsentObject))
 
         switch (_this.store) {
             case 'storage': {
@@ -100,7 +87,7 @@ export const useCookify = (options: CookifyOptionsType) => {
                 _this.jscookie.set(_this.name, tempConsentObjectString)
                 break;
             }
-        }*/
+        }
     }
 
     /**
@@ -125,15 +112,11 @@ export const useCookify = (options: CookifyOptionsType) => {
      * @param {string} type
      */
     const actionCheckbox = (type: string) => {
-        const newConsentObjectViewed: boolean = consentObject.viewed
-        const newConsentObjectData: ConsentObjectDataType = consentObject.data
+        const newConsentObject = consentObject
 
-        newConsentObjectData[type] = !consentObject.data[type]
+        newConsentObject.data[type] = !consentObject.data[type]
 
-        handleConsentObjectChange({
-            viewed: newConsentObjectViewed,
-            data: newConsentObjectData
-        })
+        handleConsentObjectChange(newConsentObject)
 
         if (_this.saveWithChange === true) {
             setMemoryData()
@@ -145,32 +128,30 @@ export const useCookify = (options: CookifyOptionsType) => {
      * Event on action accept click
      */
     const actionAccept = () => {
-        const newConsentObjectData = consentObject.data
+        const newConsentObject = consentObject
 
-        afterSomeActions({
-            viewed: true,
-            data: newConsentObjectData
-        })
+        newConsentObject['viewed'] = true
+
+        afterSomeActions(newConsentObject)
     }
     
     /**
      * Event action accept only necessary click
      */
     const actionNecessary = () => {
-        const newConsentObjectData = consentObject.data
+        const newConsentObject = consentObject
 
-        for (const type in newConsentObjectData) {
+        for (const type in newConsentObject.data) {
             if (type == _this.typeDefault) {
-                newConsentObjectData[type] = true
+                newConsentObject.data[type] = true
             } else {
-                newConsentObjectData[type] = false
+                newConsentObject.data[type] = false
             }
         }
 
-        afterSomeActions({
-            viewed: true,
-            data: newConsentObjectData
-        })
+        newConsentObject['viewed'] = true
+
+        afterSomeActions(newConsentObject)
     }
     
     /**
@@ -183,16 +164,9 @@ export const useCookify = (options: CookifyOptionsType) => {
             newConsentObject.data[type] = true
         }
 
-        // Testing the error
-        /*afterSomeActions({
-            viewed: true,
-            data: newConsentObjectData
-        })*/
+        newConsentObject['viewed'] = true
 
-        handleConsentObjectChange(newConsentObject)
-        setMemoryData()
-        handleConsentDisplayedChange(false)
-        handleConsentTrackingChange()
+        afterSomeActions(newConsentObject)
     }
 
     /* Create state object for temporary memory data storage */
@@ -203,12 +177,7 @@ export const useCookify = (options: CookifyOptionsType) => {
     const [consentTracking, setConsentTracking] = useState(0)
 
     const handleConsentObjectChange = (newConsentObject: ConsentObjectType) => {
-        //console.log('handleConsentObjectChange: ', newConsentObject)
-        //something not working
-
         setConsentObject(newConsentObject)
-
-        console.log('after -> handleConsentObjectChange: ', consentObject)
     }
 
     const handleConsentDisplayedChange = (newConsentDisplayed: boolean) => {

@@ -2,11 +2,13 @@
 
 All notable changes to `react-cookify` will be documented in this file.
 
-## v0.4.4-beta.1 - In progress...
+## v0.4.6-beta.1 - 2022-01-11
 
 * Added Web Storage API Support for the local storage
 * Added `store` in `options` Object to choose between HTML cookies and Web Storage API
 * Modified `getMemoryData()` and `setMemoryData()` to match the `store` in `options`
+* Modified the initialization code in a useEffect function to only render it once
+* Modified `actionCheckbox()`, `actionAccept()`, `actionAccept()` & `actionNecessary()` to fix issue of [#6](https://github.com/Jersyfi/react-cookify/issues/6)
 
 ## v0.3.4-beta.1 - 2022-01-08
 
