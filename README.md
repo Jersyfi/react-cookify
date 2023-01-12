@@ -139,7 +139,7 @@ export default function Home() {
 ```
 
 #### Tracking
-It is possible to track the activity of the accepted cookies. For the example i created a container named `cookifyContainer.js` that i put in the `_app.js`.
+It is possible to track the activity of the accepted cookies. For the example i created a container named `cookifyContainer.js` that i put in the `_app.js`. To ensure that the data only gets tracked after initilization write an `if ()` with `consentTracking !== 0`.
 
 ```javascript
 /* cookifyContainer.js */
@@ -150,7 +150,9 @@ export default function CookifyContainer({ children }) {
     const {consentObject, consentTracking} = useCookifyProvider()
 
     useEffect(() => {
-        console.log('You can fetch this: ', consentObject)
+        if (consentTracking !== 0) {
+            console.log('You can fetch this: ', consentObject)
+        }
     }, [consentTracking])
 
     return children

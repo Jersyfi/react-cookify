@@ -2,10 +2,14 @@
 
 All notable changes to `react-cookify` will be documented in this file.
 
-## v0.4.7-beta.1 - In progress...
+## v0.4.12-beta.1 - 2022-01-12
 
 * Modified README to match `options.store` feature
-* ?
+* Fixed the use of `options.saveByDefault` by removing the memoryData else statement
+* Fixed wrong version in README
+* Modified README to provide information about improved tracking
+* Fixed mutation and changed the code of `action...()` functions to handle `consentObject` changes correctly
+* Added `useEffect()` to listen to `consentTracking` changes for saving the memory data with `setMemoryData()` and modified the `action...()` functions with removing `setMemoryData()` and leaving only `handleConsentTrackingChange()`
 
 ## v0.4.6-beta.1 - 2022-01-11
 
