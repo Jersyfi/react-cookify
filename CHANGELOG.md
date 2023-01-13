@@ -2,6 +2,11 @@
 
 All notable changes to `react-cookify` will be documented in this file.
 
+## v0.5.13-beta.1 - In progress...
+
+* Modified README for more user friendly content
+* Modified `actionCheckbox()` that the default consent data type can't be changed if the input field has missing disabled
+
 ## v0.4.12-beta.1 - 2022-01-12
 
 * Modified README to match `options.store` feature

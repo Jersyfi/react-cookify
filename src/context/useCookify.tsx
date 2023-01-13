@@ -111,13 +111,15 @@ export const useCookify = (options: CookifyOptionsType) => {
      * @param {string} type
      */
     const actionCheckbox = (type: string): void => {
-        setConsentObject({
-            ...consentObject,
-            data: {
-                ...consentObject.data,
-                [type]: !consentObject.data[type]
-            }
-        })
+        if (type !== _this.typeDefault) {
+            setConsentObject({
+                ...consentObject,
+                data: {
+                    ...consentObject.data,
+                    [type]: !consentObject.data[type]
+                }
+            })
+        }
 
         if (_this.saveWithChange === true) {
             handleConsentTrackingChange()

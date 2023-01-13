@@ -6,45 +6,27 @@
 ![npm bundle size](https://img.shields.io/bundlephobia/min/react-cookify)
 ![GitHub License](https://img.shields.io/github/license/jersyfi/react-cookify)
 
-## General info
-This is a simple full customizable cookie consent for gdpr law. This library is build for react and easy customization. You can choose your own CSS Framework, own styles and only need to define options and implement simple code into your react app.
+## Overview
+This React library provides a headless, customizable, and simple to use solution for creating a cookie consent manager and handling GDPR compliance. It is built specifically for React.js and offers a straightforward way to manage cookies and handle GDPR regulations in your React application.
 
-### Live preview of Vanilla JS Version
-View the test file live on GitHub Pages and get in touch with Cookify. The test file used the Vanilla JS version. You can find the Vanilla JS repository [here](https://github.com/jersyfi/cookify).
-- [Bootstrap](https://jersyfi.github.io/cookify/test/preview/bootstrap.html)
-- [Tailwind CSS](https://jersyfi.github.io/cookify/test/preview/tailwindcss.html)
+How to handle GDPR correctly can be found on [Cookies, the GDPR, and the ePrivacy Directive](https://gdpr.eu/cookies).
+
+## Preview
+View and test how Cookify works in either [Bootstrap](https://jersyfi.github.io/cookify/test/preview/bootstrap.html) or [Tailwind CSS](https://jersyfi.github.io/cookify/test/preview/tailwindcss.html).
 
 ## Documentation
+
 ### Get started
+
 #### Installation
-To start with that project you can simple install `react-cookify` with npm.
+Install `react-cookify` via npm.
 
 ```bash
 npm install react-cookify
 ```
 
-#### Customization Options
-You can customize `CookifyProvider` with options. In the library i use [js-cookie](https://github.com/js-cookie/js-cookie) for handling cookies. In the options you can modify the attributes of js-cookie with `jscookie`. Below are all options with there default value.
-
-```typescript
-name: 'cookify-consent',
-storage: 'cookies', // you can choose between 'cookies' and 'storage'
-saveWithChange: false,
-saveByDefault: false,
-typeDefault: 'necessary',
-type: {
-    /* if `cookieDefault` is empty, otherwise it will use the customized `typeDefault` */
-    necessary: true
-},
-/* js-cookie attributes */
-jscookie: {
-    expires: 365,
-    path: '/',
-}
-```
-
-#### Initializing with `CookifyProvider`
-After that you need to import the `CookifyProvider` into your `_app.js` file. You also need to define the `options` in the `CookifyProvider` when you want to customize cookify.
+#### Add Cookify to your App
+Start with adding the `CookifyProvider` to your App.
 
 ```javascript
 import '../styles/globals.css'
@@ -70,30 +52,14 @@ export default function App({ Component, pageProps }) {
 }
 ```
 
-#### States & Functions of `useCookifyProvider`
-We can use states and functions with `useCookifyProvider`. Below are the states and functions you can use.
-
-```typescript
-/* ConsentObjectType => { viewed: boolean, data: { [key: string]: boolean } } */
-consentObject: ConsentObjectType,
-consentDisplayed: boolean,
-handleConsentDisplayedChange: (newConsentDisplayed: boolean) => void,
-consentTracking: number,
-actionCheckbox: (type: string) => void,
-actionAccept: () => void,
-actionNecessary: () => void,
-actionAll: () => void,
-```
-
-#### Handling Consent with `useCookifyProvider` & `CookifyInput`
-Now as an example we add the code to the `index.js` file but you can put it wherever you prefer.
+Now add the logic to your Home page.
 
 ```javascript
 import { useEffect, useState } from 'react'
 import { useCookifyProvider, CookifyInput } from 'react-cookify'
 
 export default function Home() {
-    const {consentDisplayed, handleConsentDisplayedChange, actionAccept, actionNecessary, actionAll} = useCookifyProvider()
+    const {consentObject, consentDisplayed, handleConsentDisplayedChange, consentTracking, actionAccept, actionNecessary, actionAll} = useCookifyProvider()
     const [displayedClass, setDisplayedClass] = useState('')
 
     /* CSS not provided in example */
@@ -105,9 +71,17 @@ export default function Home() {
         }
     }
 
+    /* Display the consent management */
     useEffect(() => {
         handleToggle()
     }, [consentDisplayed])
+
+    /* Track the data if needed */
+    useEffect(() => {
+        if (consentTracking !== 0) { // Only track after initialization
+            console.log('Track data here', consentObject)
+        }
+    }, [consentTracking])
 
     return (
         <>
@@ -138,41 +112,111 @@ export default function Home() {
 }
 ```
 
-#### Tracking
-It is possible to track the activity of the accepted cookies. For the example i created a container named `cookifyContainer.js` that i put in the `_app.js`. To ensure that the data only gets tracked after initilization write an `if ()` with `consentTracking !== 0`.
+#### Configure Cookify
+All configuration options with its default values.
 
-```javascript
-/* cookifyContainer.js */
-import { useEffect } from 'react'
-import { useCookifyProvider } from 'react-cookify'
-
-export default function CookifyContainer({ children }) {
-    const {consentObject, consentTracking} = useCookifyProvider()
-
-    useEffect(() => {
-        if (consentTracking !== 0) {
-            console.log('You can fetch this: ', consentObject)
-        }
-    }, [consentTracking])
-
-    return children
-}
-
-/* _app.js */
-import '../styles/globals.css'
-import { CookifyProvider } from 'react-cookify'
-import CookifyContainer from '../components/CookifyContainer'
-
-export default function App({ Component, pageProps }) {
-    return (
-        <CookifyProvider options={...}>
-            <CookifyContainer>
-                <Component {...pageProps} />
-            </CookifyContainer>
-        </CookifyProvider>
-    )
+```typescript
+name: 'cookify-consent',
+storage: 'cookies', // ['cookies' and 'storage']
+saveWithChange: false,
+saveByDefault: false,
+typeDefault: 'necessary',
+type: {
+    // `necessary: true` will be set automatically
+    // if `typeDefault` is empty, otherwise it will use the customized `typeDefault` instead of `necessary`
+},
+// js-cookie attributes
+// Only needed when using `storage: 'cookies'`
+// More information on https://github.com/js-cookie/js-cookie
+jscookie: {
+    expires: 365,
+    path: '/',
 }
 ```
+
+### Provider interaction
+
+#### States
+
+##### consentObject
+**Type:** consentObject: ConsentObjectType
+**Syntax:** consentObject
+```bash
+console.log(consentObject)
+
+> Object: {
+    viewed: false,
+    data: {
+      'necessary': true,
+      'marketing': false,
+      'performance': false,
+    },
+  }
+```
+
+##### consentDisplayed
+**Type:** consentDisplayed: boolean
+**Syntax:** consentDisplayed
+```bash
+console.log(consentDisplayed)
+
+> false
+```
+
+##### handleConsentDisplayedChange
+**Type:** handleConsentDisplayedChange: (newConsentDisplayed: boolean) => void
+**Syntax:** handleConsentDisplayedChange(false)
+```javascript
+<button onClick={() => handleConsentDisplayedChange(true)}>
+    Open Modal
+</button>
+```
+
+##### consentTracking
+**Type:** consentTracking: number
+**Syntax:** consentTracking
+```bash
+console.log(consentTracking)
+
+> 0
+```
+
+#### Actions
+
+##### actionCheckbox
+**Type:** actionCheckbox: (type: string) => void
+**Syntax:** actionCheckbox('type')
+```javascript
+<input
+    type="checkbox"
+    name="marketing"
+    id="marketing"
+    checked={consentObject.data['marketing']}
+    onChange={() => actionCheckbox('marketing')}
+/>
+```
+
+##### actionAccept
+**Type:** actionAccept: () => void
+**Syntax:** actionAccept
+```javascript
+<button onClick={actionAccept}>Accept</button>
+```
+
+##### actionNecessary
+**Type:** actionNecessary: () => void
+**Syntax:** actionNecessary
+```javascript
+<button onClick={actionNecessary}>Necessary</button>
+```
+
+##### actionAll
+**Type:** actionAll: () => void
+**Syntax:** actionAll
+```javascript
+<button onClick={actionAll}>All</button>
+```
+
 
 ## Framework Support & Features
 You can view all library languages and supported features [here](https://github.com/Jersyfi/cookify#framework-support--features).
