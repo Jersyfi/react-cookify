@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { CookieAttributes } from "js-cookie";
+import { ReactNode, InputHTMLAttributes } from 'react'
+import { CookieAttributes } from 'js-cookie'
 
 /**
  * Type for the ConsentObjectData
@@ -86,6 +86,18 @@ export interface CookifyProviderProps {
  * @interface CookifyInputProps
  * @member {string} name
  */
-export interface CookifyInputProps {
+export interface CookifyInputProps extends InputHTMLAttributes<HTMLInputElement> {
     name: string
+}
+
+/**
+ * Props for CookifyConsent Component
+ * 
+ * @interface CookifyConsentProps
+ * @member {string} options
+ * @member {ReactNode} children
+ */
+export interface CookifyConsentProps {
+    options: CookifyOptionsType,
+    children: ReactNode
 }

@@ -25,6 +25,9 @@ Install `react-cookify` via npm.
 npm install react-cookify
 ```
 
+> **Advanced guide (Headless)**
+> Create your own Cookify Consent Manager
+
 #### Add Cookify to your App
 Start with adding the `CookifyProvider` to your App.
 
@@ -133,6 +136,9 @@ jscookie: {
     path: '/',
 }
 ```
+
+> **Simple guide**
+> comming soon
 
 ### Provider interaction
 
