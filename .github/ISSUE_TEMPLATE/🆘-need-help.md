@@ -1,7 +1,7 @@
 ---
 name: "\U0001F198 Need help"
 about: Ask for help
-title: ''
+title: '[HELP]'
 labels: ''
 assignees: ''
 
