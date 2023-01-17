@@ -1,4 +1,4 @@
-# react-cookify
+# 🍪 react-cookify
 
 ![NPM Downloads](https://img.shields.io/npm/dt/react-cookify)
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/jersyfi/react-cookify)
