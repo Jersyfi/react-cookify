@@ -1,4 +1,5 @@
 import React from 'react'
+import '../../styles/index.css'
 import { CookifyProvider } from '../../context/cookifyContext'
 import ConsentModal from './consentModal'
 import { CookifyConsentProps } from '../../types'
