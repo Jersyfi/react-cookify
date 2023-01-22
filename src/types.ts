@@ -21,6 +21,10 @@ export type ConsentObjectDataType = {
 export type ConsentObjectType = {
     viewed: boolean,
     data: ConsentObjectDataType,
+    //uuid
+    //created_at: Date
+    //updated_at: Date
+    //revision: 0
 }
 
 /**
@@ -55,7 +59,7 @@ export interface CookifyContextProps {
  * @member {boolean} saveWithChange
  * @member {boolean} saveByDefault
  * @member {string} typeDefault
- * @member {ConsentObjectDataType} type
+ * @member {ConsentObjectDataType} types
  * @member {CookieAttributes} jscookie
  */
 export type CookifyOptionsType = {
@@ -64,7 +68,7 @@ export type CookifyOptionsType = {
     saveWithChange?: boolean,
     saveByDefault?: boolean,
     typeDefault?: string,
-    type?: ConsentObjectDataType,
+    types?: ConsentObjectDataType,
     jscookie?: CookieAttributes
 }
 
@@ -91,13 +95,59 @@ export interface CookifyInputProps extends InputHTMLAttributes<HTMLInputElement>
 }
 
 /**
+ * Type for the modal in settings
+ * 
+ * @type CookifyModalType
+ * @member {any} [key: string]
+ */
+export type CookifyModalType = {
+    [key: string]: any
+}
+
+/**
+ * Type for the consent settings
+ * 
+ * @type ConsentSettingsType
+ * @member {CookifyOptionsType} options
+ * @member {CookifyModalType} modal
+ */
+export type ConsentSettingsType = {
+    options: CookifyOptionsType,
+    modal: CookifyModalType
+}
+
+/**
  * Props for CookifyConsent Component
  * 
  * @interface CookifyConsentProps
- * @member {string} options
+ * @member {ConsentSettingsType} settings
  * @member {ReactNode} children
  */
 export interface CookifyConsentProps {
-    options: CookifyOptionsType,
+    settings: ConsentSettingsType,
     children: ReactNode
+}
+
+/**
+ * Props for Consent Modal Component
+ * 
+ * @interface ConsentModalProps
+ * @member {CookifyModalType} modal
+ */
+export interface ConsentModalProps {
+    modal: CookifyModalType
+}
+
+/**
+ * Props for collapsible type props
+ * 
+ * @interface CollapsibleTypeProps
+ * @member {any} type
+ * @member {string} typeDefault
+ * @member {boolean} last
+ */
+export interface CollapsibleTypeProps {
+    type: any,
+    typeDefault: string,
+    last: boolean
 }

@@ -8,7 +8,7 @@
 ![GitHub License](https://img.shields.io/github/license/jersyfi/react-cookify)
 
 ## Overview
-This React library provides a headless, customizable, and simple to use solution for creating a cookie consent manager and handling GDPR compliance. It is built specifically for React.js and offers a straightforward way to manage cookies and handle GDPR regulations in your React application.
+This React library provides a customizable, simple to use and also a headless solution for creating a cookie consent manager and handling GDPR compliance. It is built specifically for React.js and offers a straightforward way to manage cookies and handle GDPR regulations in your React application.
 
 How to handle GDPR correctly can be found on [Cookies, the GDPR, and the ePrivacy Directive](https://gdpr.eu/cookies).
 
@@ -40,7 +40,7 @@ export default function App({ Component, pageProps }) {
     return (
         <CookifyProvider options={{
             name: 'own-cookify-consent',
-            type: {
+            types: {
                 marketing: false,
                 performance: false,
             },
@@ -125,7 +125,7 @@ storage: 'cookies', // ['cookies' and 'storage']
 saveWithChange: false,
 saveByDefault: false,
 typeDefault: 'necessary',
-type: {
+types: {
     // `necessary: true` will be set automatically
     // if `typeDefault` is empty, otherwise it will use the customized `typeDefault` instead of `necessary`
 },

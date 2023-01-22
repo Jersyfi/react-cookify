@@ -1,10 +1,23 @@
 import React, { useEffect, useState } from 'react'
+import { ConsentModalProps } from '../../types'
 import { useCookifyProvider } from '../../context/cookifyContext'
-import CookifyInput from '../cookifyInput'
+import CollapsibleType from './collapsibleType'
 
-export const ConsentModal: React.FC = () => {
-    const {consentDisplayed, actionAccept, actionNecessary, actionAll} = useCookifyProvider()
+export const ConsentModal: React.FC<ConsentModalProps> = ({ modal }) => {
+    const {consentObject, consentDisplayed, actionAccept, actionNecessary, actionAll} = useCookifyProvider()
     const [displayedClass, setDisplayedClass] = useState('')
+
+    const _this = {
+        support: modal?.support ?? true,
+        secound_layer: {
+            title: modal?.secound_layer?.title || 'Manage Cookies',
+            description: modal?.secound_layer?.description || <>We use cookies to provide and secure our websites, as well as to analyze the usage of our websites, in order to offer you a great user experience. To learn more about our use of cookies see our <a href="#" style={{textDecoration: 'underline', fontWeight: 500}}>Privacy Policy</a>.</>
+        },
+        table: {
+            headers: modal?.table.headers || {},
+            types: modal?.table.types || []
+        }
+    }
 
     const handleToggle = () => {
         if (consentDisplayed) {
@@ -19,46 +32,51 @@ export const ConsentModal: React.FC = () => {
         console.log('comp. consentDisplayed', consentDisplayed)
     }, [consentDisplayed])
 
+    useEffect(() => {
+        console.log('comp. consentObject', consentObject)
+    }, [consentObject])
+
     return (
         <div className={displayedClass}>
-            <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                    <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                        <h2 className="text-2xl font-semibold mb-2">Manage Cookies</h2>
-                        <p className="mb-4">We use cookies to provide and secure our websites, as well as to analyze the usage of our websites, in order to offer you a great user experience. To learn more about our use of cookies see our <a href="#" target="_blank">Privacy Policy</a>.</p>
+            <div className="flex min-h-full items-end justify-center text-center sm:items-center">
+                <div className="relative flex flex-col h-screen sm:h-fit sm:max-h-[32rem] w-screen sm:w-fit sm:max-w-xl md:max-w-2xl transform overflow-hidden sm:rounded-lg bg-white text-left shadow-2xl transition-all sm:my-8">
+                    <div className="grow-0 bg-gray-100 px-4 py-3 sm:px-6 border-b">
+                        <h2 className="text-2xl font-semibold">{_this.secound_layer.title}</h2>
+                    </div>
+                    <div className="grow overflow-y-auto px-4 py-3 sm:px-6">
+                        <p className="mb-4">{_this.secound_layer.description}</p>
 
-                        <div className="font-bold">
-                            <CookifyInput type="checkbox" name="necessary" id="necessary2" disabled />
-                            <label htmlFor="necessary2">
-                                Necessary
-                            </label>
-                        </div>
+                        {_this.table.types.map((type: any, index: number) => {
+                            console.log(_this.table.types.length >= (index + 1))
 
-                        <div className="font-bold">
-                            <CookifyInput type="checkbox" name="marketing" id="marketing2" />
-                            <label htmlFor="marketing2">
-                                Marketing
-                            </label>
-                        </div>
-
-                        <div className="font-bold">
-                            <CookifyInput type="checkbox" name="performance" id="performance2" />
-                            <label htmlFor="performance2">
-                                Performance
-                            </label>
-                        </div>
+                            return (
+                                <CollapsibleType
+                                    key={index}
+                                    type={type}
+                                    typeDefault={modal.typeDefault}
+                                    last={_this.table.types.length >= (index + 1)}
+                                />
+                            )
+                        })}
                     </div>
 
-                    <div className="bg-gray-50 px-4 py-3 flex flex-col sm:flex-row-reverse sm:px-6 gap-3">
-                        <button onClick={actionAll} className="inline-flex w-full font-medium justify-center w-fit px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-md shadow-md hover:shadow-lg shadow-black/50 hover:shadow-black/50 transition duration-500 text-white">
-                            All
-                        </button>
-                        <button onClick={actionAccept} className="inline-flex w-full font-medium justify-center w-fit px-4 py-2 bg-gray-600 hover:bg-gray-500 rounded-md shadow-md hover:shadow-lg shadow-black/50 hover:shadow-black/50 transition duration-500 text-white">
-                            Accept
-                        </button>
-                        <button onClick={actionNecessary} className="inline-flex w-full font-medium justify-center w-fit px-4 py-2 bg-gray-600 hover:bg-gray-500 rounded-md shadow-md hover:shadow-lg shadow-black/50 hover:shadow-black/50 transition duration-500 text-white">
-                            Necessary
-                        </button>
+                    <div className="grow-0 bg-gray-100 px-4 py-3 sm:px-6 grid gap-3 border-t">
+                        <div className="flex flex-col sm:flex-row-reverse gap-3">
+                            <button onClick={actionAll} className="inline-flex font-medium justify-center sm:w-full px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-md transition duration-500 text-white">
+                                All
+                            </button>
+                            <button onClick={actionAccept} className="inline-flex font-medium justify-center sm:w-full px-4 py-2 bg-gray-600 hover:bg-gray-500 rounded-md transition duration-500 text-white">
+                                Accept
+                            </button>
+                            <button onClick={actionNecessary} className="inline-flex font-medium justify-center sm:w-full px-4 py-2 bg-gray-600 hover:bg-gray-500 rounded-md shadow-md transition duration-500 text-white">
+                                Necessary
+                            </button>
+                        </div>
+                        {_this.support === true && (
+                            <div className="w-full text-sm text-center">
+                                Powered by <a className="font-bold" href="#">Cookify</a>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

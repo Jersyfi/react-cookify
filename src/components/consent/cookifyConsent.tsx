@@ -4,11 +4,15 @@ import { CookifyProvider } from '../../context/cookifyContext'
 import ConsentModal from './consentModal'
 import { CookifyConsentProps } from '../../types'
 
-export const CookifyConsent: React.FC<CookifyConsentProps> = ({options, children}) => {
+export const CookifyConsent: React.FC<CookifyConsentProps> = ({settings, children}) => {
+    const {options, modal} = settings
+
+    modal['typeDefault'] = options.typeDefault || 'necessary'
+    
     return (
         <CookifyProvider options={options}>
             {children}
-            <ConsentModal />
+            <ConsentModal modal={modal}/>
         </CookifyProvider>
     )
 }

@@ -7,24 +7,28 @@ export const useCookify = (options: CookifyOptionsType) => {
      * Initializing the data
      */
     const _this = {
-        name: options.name || 'cookify-consent',
-        store: options.store || 'cookies',
-        saveWithChange: options.saveWithChange || false,
-        saveByDefault: options.saveByDefault || false,
-        typeDefault: options.typeDefault || 'necessary',
+        name: options?.name || 'cookify-consent',
+        store: options?.store || 'cookies',
+        saveWithChange: options?.saveWithChange || false,
+        saveByDefault: options?.saveByDefault || false,
+        typeDefault: options?.typeDefault || 'necessary',
         consentObject: (): ConsentObjectType => {
             const newConsentObject = {
                 viewed: false,
                 data: {
                     [_this.typeDefault]: true,
                 },
-            }, newConsentDataObject = options.type || {}
+                //uuid
+                //created_at: Date
+                //updated_at: Date
+                //revision: 0
+            }, newConsentDataObject = options?.types || {}
 
             newConsentObject['data'] = Object.assign(newConsentObject.data, newConsentDataObject)
 
             return newConsentObject
         },
-        jscookie: Cookies.withAttributes(options.jscookie || {
+        jscookie: Cookies.withAttributes(options?.jscookie || {
             expires: 365,
             path: '/',
         }),
@@ -222,7 +226,7 @@ export const useCookify = (options: CookifyOptionsType) => {
         }
     }, [])
 
-    /* Save the data in memory when changes need to be saved */
+    /* Save the data in memory to save changes */
     useEffect(() => {
         if (consentTracking !== 0) {
             console.log('saving')
