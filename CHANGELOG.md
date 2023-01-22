@@ -2,6 +2,11 @@
 
 All notable changes to `react-cookify` will be documented in this file.
 
+## v1.0.0 - 2023-01-22
+
+* Rolled back the consent modal and all necessary components for v2.0.0
+* Prepared for branch seperation
+
 ## v0.6.16-beta.1 - 2023-01-22
 
 * Modified README for more user friendly content
