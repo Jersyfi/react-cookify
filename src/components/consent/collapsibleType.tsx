@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { CollapsibleTypeProps } from '../../types'
 import { CookifyInput } from '../cookifyInput'
 
-export const CollapsibleType: React.FC<CollapsibleTypeProps> = ({ type, typeDefault, last }) => {
+export const CollapsibleType: React.FC<CollapsibleTypeProps> = ({ type, typeDefault, headers, last }) => {
     const [collapse, setCollapse] = useState(false)
 
     const toogleCollapse = () => {
@@ -10,13 +10,13 @@ export const CollapsibleType: React.FC<CollapsibleTypeProps> = ({ type, typeDefa
     }
 
     return (
-        <div className={'bg-gray-300 rounded-lg ' + (last ? 'mb-3' : '')}>
-            <div className="hover:bg-gray-300 rounded-lg p-3">
-                <div onClick={toogleCollapse}>
+        <div className={'bg-gray-300 rounded-lg ' + (last ? 'mb-4' : '')}>
+            <div className="bg-gray-400 hover:bg-gray-500 rounded-lg p-3 flex">
+                <div onClick={toogleCollapse} className="grow font-bold">
                     {type.title}
                 </div>
 
-                <div className="relative inline-flex items-center cursor-pointer">
+                <div className="grow-0 relative inline-flex items-center cursor-pointer">
                     <CookifyInput
                         className="sr-only peer"
                         type="checkbox"
@@ -28,6 +28,31 @@ export const CollapsibleType: React.FC<CollapsibleTypeProps> = ({ type, typeDefa
             </div>
             <div className={'p-3 ' + (collapse ? '' : 'hidden')}>
                 <p>{type.description}</p>
+
+                { type.table?.length > 0 && (
+                    <table>
+                        <thead>
+                            <tr>
+                                <>
+                                    {() => {
+                                        const rows = []
+
+                                        for (const key in headers) {
+                                            rows.push(<th scope="col" className="">{headers[key]}</th>)
+                                        }
+
+                                        console.log(rows)
+
+                                        return rows
+                                    }}
+                                </>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                )}
             </div>
         </div>
     )

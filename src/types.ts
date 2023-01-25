@@ -149,5 +149,15 @@ export interface ConsentModalProps {
 export interface CollapsibleTypeProps {
     type: any,
     typeDefault: string,
+    headers: {
+        [key: string]: string
+    },
     last: boolean
+}
+
+/**
+ * 
+ */
+export interface SupportPorps {
+    display: boolean
 }

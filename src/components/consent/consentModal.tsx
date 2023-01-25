@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { ConsentModalProps } from '../../types'
 import { useCookifyProvider } from '../../context/cookifyContext'
 import CollapsibleType from './collapsibleType'
+import Support from './support'
 
 export const ConsentModal: React.FC<ConsentModalProps> = ({ modal }) => {
-    const {consentObject, consentDisplayed, actionAccept, actionNecessary, actionAll} = useCookifyProvider()
+    const {consentDisplayed, actionAccept, actionNecessary, actionAll} = useCookifyProvider()
     const [displayedClass, setDisplayedClass] = useState('')
 
     const _this = {
@@ -29,37 +30,36 @@ export const ConsentModal: React.FC<ConsentModalProps> = ({ modal }) => {
 
     useEffect(() => {
         handleToggle()
-        console.log('comp. consentDisplayed', consentDisplayed)
     }, [consentDisplayed])
 
-    useEffect(() => {
-        console.log('comp. consentObject', consentObject)
-    }, [consentObject])
-
     return (
+        /* Modal Secound Layer */
         <div className={displayedClass}>
             <div className="flex min-h-full items-end justify-center text-center sm:items-center">
                 <div className="relative flex flex-col h-screen sm:h-fit sm:max-h-[32rem] w-screen sm:w-fit sm:max-w-xl md:max-w-2xl transform overflow-hidden sm:rounded-lg bg-white text-left shadow-2xl transition-all sm:my-8">
+                    {/* Header */}
                     <div className="grow-0 bg-gray-100 px-4 py-3 sm:px-6 border-b">
                         <h2 className="text-2xl font-semibold">{_this.secound_layer.title}</h2>
                     </div>
+
+                    {/* Body */}
                     <div className="grow overflow-y-auto px-4 py-3 sm:px-6">
                         <p className="mb-4">{_this.secound_layer.description}</p>
 
                         {_this.table.types.map((type: any, index: number) => {
-                            console.log(_this.table.types.length >= (index + 1))
-
                             return (
                                 <CollapsibleType
                                     key={index}
                                     type={type}
                                     typeDefault={modal.typeDefault}
+                                    headers={_this.table.headers}
                                     last={_this.table.types.length >= (index + 1)}
                                 />
                             )
                         })}
                     </div>
 
+                    {/* Footer */}
                     <div className="grow-0 bg-gray-100 px-4 py-3 sm:px-6 grid gap-3 border-t">
                         <div className="flex flex-col sm:flex-row-reverse gap-3">
                             <button onClick={actionAll} className="inline-flex font-medium justify-center sm:w-full px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-md transition duration-500 text-white">
@@ -72,11 +72,8 @@ export const ConsentModal: React.FC<ConsentModalProps> = ({ modal }) => {
                                 Necessary
                             </button>
                         </div>
-                        {_this.support === true && (
-                            <div className="w-full text-sm text-center">
-                                Powered by <a className="font-bold" href="#">Cookify</a>
-                            </div>
-                        )}
+
+                        <Support display={_this.support} />
                     </div>
                 </div>
             </div>
