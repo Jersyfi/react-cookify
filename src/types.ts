@@ -1,4 +1,4 @@
-import { ReactNode, InputHTMLAttributes } from 'react'
+import React, { ReactNode, HTMLAttributes, InputHTMLAttributes } from 'react'
 import { CookieAttributes } from 'js-cookie'
 
 /**
@@ -113,7 +113,7 @@ export type CookifyModalType = {
  */
 export type ConsentSettingsType = {
     options: CookifyOptionsType,
-    modal: CookifyModalType
+    consent: CookifyModalType
 }
 
 /**
@@ -135,7 +135,9 @@ export interface CookifyConsentProps {
  * @member {CookifyModalType} modal
  */
 export interface ConsentModalProps {
-    modal: CookifyModalType
+    label: any,
+    table: any,
+    support: boolean
 }
 
 /**
@@ -160,4 +162,40 @@ export interface CollapsibleTypeProps {
  */
 export interface SupportPorps {
     display: boolean
+}
+
+
+
+/**
+ * NEW
+ * NEW
+ * NEW
+ */
+
+/**
+ * Consent
+ */
+
+/* Detail */
+export interface ConsentDetailWrapperProps extends HTMLAttributes<HTMLElement> {
+    children: ReactNode
+}
+
+export interface ConsentDetailHeaderProps {
+    title: string
+}
+
+export interface ConsentDetailBodyProps {
+    description: string,
+    table: any
+}
+
+export interface ConsentDetailFooterProps {
+    support: boolean
+}
+
+export interface ConsentDetailBodyCollapsibleProps {
+    type: any,
+    tableHeaders: any,
+    typeDefault: string
 }

@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
-import { CollapsibleTypeProps } from '../../types'
-import { CookifyInput } from '../cookifyInput'
+import { ConsentDetailBodyCollapsibleProps } from '../../../../types'
+import { CookifyInput } from '../../../input'
 
-export const CollapsibleType: React.FC<CollapsibleTypeProps> = ({ type, typeDefault, headers, last }) => {
+export const Collapsible: React.FC<ConsentDetailBodyCollapsibleProps> = ({ type, tableHeaders, typeDefault }) => {
     const [collapse, setCollapse] = useState(false)
 
-    const toogleCollapse = () => {
+    const handleToogleCollapse = () => {
         setCollapse(!collapse)
     }
 
     return (
-        <div className={'bg-gray-300 rounded-lg ' + (last ? 'mb-4' : '')}>
+        <div className="bg-gray-300 rounded-lg mb-4">
             <div className="bg-gray-400 hover:bg-gray-500 rounded-lg p-3 flex">
-                <div onClick={toogleCollapse} className="grow font-bold">
+                <div onClick={handleToogleCollapse} className="grow font-bold">
                     {type.title}
                 </div>
 
@@ -26,30 +26,30 @@ export const CollapsibleType: React.FC<CollapsibleTypeProps> = ({ type, typeDefa
                     <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                 </div>
             </div>
-            <div className={'p-3 ' + (collapse ? '' : 'hidden')}>
+            <div className={'grid gap-4 p-3 ' + (collapse ? '' : 'hidden')}>
                 <p>{type.description}</p>
 
-                { type.table?.length > 0 && (
-                    <table>
+                { type.body?.length > 0 && (
+                    <table className="w-full">
                         <thead>
                             <tr>
-                                <>
-                                    {() => {
-                                        const rows = []
-
-                                        for (const key in headers) {
-                                            rows.push(<th scope="col" className="">{headers[key]}</th>)
-                                        }
-
-                                        console.log(rows)
-
-                                        return rows
-                                    }}
-                                </>
+                                {tableHeaders.map((header: string, index: number) => (
+                                    <th key={index} scope="col">
+                                        {header}
+                                    </th>
+                                ))}
                             </tr>
                         </thead>
                         <tbody>
-
+                            {type.body.map((row: any, index: number) => (
+                                <tr key={index}>
+                                    {row.map((col: string, index: number) => (
+                                        <td key={index}>
+                                            {col}
+                                        </td>
+                                    ))}
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 )}
@@ -58,4 +58,4 @@ export const CollapsibleType: React.FC<CollapsibleTypeProps> = ({ type, typeDefa
     )
 }
 
-export default CollapsibleType
+export default Collapsible
