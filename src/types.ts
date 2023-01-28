@@ -1,4 +1,4 @@
-import React, { ReactNode, HTMLAttributes, InputHTMLAttributes } from 'react'
+import { ReactNode, HTMLAttributes, InputHTMLAttributes } from 'react'
 import { CookieAttributes } from 'js-cookie'
 
 /**
@@ -90,7 +90,7 @@ export interface CookifyProviderProps {
  * @interface CookifyInputProps
  * @member {string} name
  */
-export interface CookifyInputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     name: string
 }
 
@@ -137,7 +137,8 @@ export interface CookifyConsentProps {
 export interface ConsentModalProps {
     label: any,
     table: any,
-    support: boolean
+    support: boolean,
+    reference: boolean
 }
 
 /**
@@ -187,7 +188,8 @@ export interface ConsentDetailHeaderProps {
 
 export interface ConsentDetailBodyProps {
     description: string,
-    table: any
+    table: any,
+    reference: boolean
 }
 
 export interface ConsentDetailFooterProps {

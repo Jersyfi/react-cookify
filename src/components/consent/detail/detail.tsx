@@ -6,7 +6,7 @@ import Header from './header'
 import Body from './body/body'
 import Footer from './footer'
 
-export const Detail: React.FC<ConsentModalProps> = ({ label, table, support }) => {
+export const Detail: React.FC<ConsentModalProps> = ({ label, table, support, reference }) => {
     const {consentDisplayed} = useCookifyProvider()
     /*const [displayed, setDisplayed] = useState()
 
@@ -27,6 +27,7 @@ export const Detail: React.FC<ConsentModalProps> = ({ label, table, support }) =
             <Body
                 description={label.description}
                 table={table}
+                reference={reference}
             />
 
             <Footer

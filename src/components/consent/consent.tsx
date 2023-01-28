@@ -9,6 +9,7 @@ export const Consent: React.FC<CookifyConsentProps> = ({settings, children}) => 
 
     const _this = {
         support: consent?.support ?? true,
+        reference: consent?.reference ?? false,
         detail: {
             title: consent?.secound_layer?.title || 'Manage Cookies',
             description: consent?.secound_layer?.description || <>We use cookies to provide and secure our websites, as well as to analyze the usage of our websites, in order to offer you a great user experience. To learn more about our use of cookies see our <a href="#" style={{textDecoration: 'underline', fontWeight: 500}}>Privacy Policy</a>.</>
@@ -29,7 +30,12 @@ export const Consent: React.FC<CookifyConsentProps> = ({settings, children}) => 
     return (
         <CookifyProvider options={options}>
             {children}
-            <Detail label={_this.detail} table={_this.table} support={_this.support}/>
+            <Detail
+                label={_this.detail}
+                table={_this.table}
+                support={_this.support}
+                reference={_this.reference}
+            />
         </CookifyProvider>
     )
 }

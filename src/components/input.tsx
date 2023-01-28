@@ -1,8 +1,8 @@
 import React from "react";
 import { useCookifyProvider } from '../context/cookifyContext'
-import { CookifyInputProps } from '../types'
+import { InputProps } from '../types'
 
-export const CookifyInput: React.FC<CookifyInputProps> = ({ name, ...rest }) => {
+export const Input: React.FC<InputProps> = ({ name, ...rest }) => {
     const {consentObject, actionCheckbox} = useCookifyProvider()
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -19,4 +19,4 @@ export const CookifyInput: React.FC<CookifyInputProps> = ({ name, ...rest }) => 
     )
 }
 
-export default CookifyInput
+export default Input
