@@ -21,10 +21,10 @@ export type ConsentObjectDataType = {
 export type ConsentObjectType = {
     viewed: boolean,
     data: ConsentObjectDataType,
-    //uuid
-    //created_at: Date
-    //updated_at: Date
-    //revision: 0
+    uuid: string,
+    created_at: Date,
+    updated_at: Date,
+    revision: number
 }
 
 /**
@@ -69,7 +69,8 @@ export type CookifyOptionsType = {
     saveByDefault?: boolean,
     typeDefault?: string,
     types?: ConsentObjectDataType,
-    jscookie?: CookieAttributes
+    jscookie?: CookieAttributes,
+    revision?: number
 }
 
 /**

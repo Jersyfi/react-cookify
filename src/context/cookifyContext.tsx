@@ -3,7 +3,14 @@ import { useCookify } from './useCookify';
 import { CookifyContextProps, CookifyProviderProps } from "../types";
 
 export const CookifyContext = createContext<CookifyContextProps>({
-    consentObject: { viewed: false, data: {} },
+    consentObject: {
+        viewed: false,
+        data: {},
+        uuid: '',
+        created_at: new Date(),
+        updated_at: new Date(),
+        revision: 0
+    },
     consentDisplayed: false,
     handleConsentDisplayedChange: () => {/* do nothing */},
     consentTracking: 0,

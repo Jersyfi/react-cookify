@@ -15,7 +15,7 @@ export const Collapsible: React.FC<ConsentDetailBodyCollapsibleProps> = ({ type,
 
     return (
         <div className="overflow-hidden">
-            <div className="bg-gray-300 hover:bg-gray-400/60 rounded-lg p-3 flex">
+            <div className="bg-gray-300 hover:bg-gray-400/60 rounded-lg p-3 flex gap-3">
                 <div onClick={handleToogleCollapse} className="grow font-bold">
                     {type.title}
                     { type.body?.length > 0 && (
@@ -30,7 +30,7 @@ export const Collapsible: React.FC<ConsentDetailBodyCollapsibleProps> = ({ type,
                         name={type.for}
                         disabled={checkIfDisabled()}
                     />
-                    <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 peer-disabled:opacity-50"></div>
+                    <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 peer-disabled:opacity-50"></div>
                 </label>
             </div>
             <div className={'px-2 ' + (collapse ? '' : 'hidden')}>

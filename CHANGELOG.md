@@ -5,7 +5,9 @@ All notable changes to `react-cookify` will be documented in this file.
 ## v2.0.0-beta.1 - 2023-01-22
 
 * Prepared for v2.0.0-beta.1 and seperated into different branches
-* 
+* Added uuid, created_at, updated_at & revision to `consentObject`
+* Modified the `CookifyConsent` components with UI changes to the detail layer
+* more... 
 
 ## v0.6.16-beta.1 - 2023-01-22
 

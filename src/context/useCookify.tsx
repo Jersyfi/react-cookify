@@ -12,22 +12,17 @@ export const useCookify = (options: CookifyOptionsType) => {
         saveWithChange: options?.saveWithChange || false,
         saveByDefault: options?.saveByDefault || false,
         typeDefault: options?.typeDefault || 'necessary',
-        consentObject: (): ConsentObjectType => {
-            const newConsentObject = {
+        consentObject: (): ConsentObjectType => ({
                 viewed: false,
-                data: {
-                    [_this.typeDefault]: true,
-                },
-                //uuid
-                //created_at: Date
-                //updated_at: Date
-                //revision: 0
-            }, newConsentDataObject = options?.types || {}
-
-            newConsentObject['data'] = Object.assign(newConsentObject.data, newConsentDataObject)
-
-            return newConsentObject
-        },
+                data: Object.assign(
+                    { [_this.typeDefault]: true },
+                    (options?.types || {})
+                ),
+                uuid: '',
+                created_at: new Date(),
+                updated_at: new Date(),
+                revision: options?.revision || 0
+        }),
         jscookie: Cookies.withAttributes(options?.jscookie || {
             expires: 365,
             path: '/',
@@ -116,17 +111,21 @@ export const useCookify = (options: CookifyOptionsType) => {
      */
     const actionCheckbox = (type: string): void => {
         if (type !== _this.typeDefault) {
-            setConsentObject({
-                ...consentObject,
-                data: {
-                    ...consentObject.data,
-                    [type]: !consentObject.data[type]
-                }
-            })
-        }
-
-        if (_this.saveWithChange === true) {
-            handleConsentTrackingChange()
+            if (_this.saveWithChange === true) {
+                setConsentObject({
+                    ...consentObject,
+                    updated_at: new Date()
+                })
+                handleConsentTrackingChange()
+            } else {
+                setConsentObject({
+                    ...consentObject,
+                    data: {
+                        ...consentObject.data,
+                        [type]: !consentObject.data[type]
+                    }
+                })
+            }
         }
     }
 
@@ -136,7 +135,8 @@ export const useCookify = (options: CookifyOptionsType) => {
     const actionAccept = (): void => {
         afterSomeActions({
             ...consentObject,
-            viewed: true
+            viewed: true,
+            updated_at: new Date()
         })
     }
     
@@ -160,7 +160,8 @@ export const useCookify = (options: CookifyOptionsType) => {
             data: {
                 ...consentObject.data,
                 ...newConsentObjectData
-            }
+            },
+            updated_at: new Date()
         })
     }
     
@@ -180,7 +181,8 @@ export const useCookify = (options: CookifyOptionsType) => {
             data: {
                 ...consentObject.data,
                 ...newConsentObjectData
-            }
+            },
+            updated_at: new Date()
         })
     }
 
@@ -209,12 +211,22 @@ export const useCookify = (options: CookifyOptionsType) => {
         const memoryData: ConsentObjectType | boolean = getMemoryData()
         const tempConsentObject: ConsentObjectType = consentObject
 
-        if (typeof memoryData === 'object') {
+        /* Can only be called on client side */
+        tempConsentObject['uuid'] = ([1e7, -1e3, -4e3, -8e3, -1e11].join('').replace(/[018]/g, c => (
+            parseInt(c, 10) ^ self.crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> parseInt(c, 10) / 4).toString(16)
+        ))
+
+        /* Check if storage exists for using saved data */
+        if (typeof memoryData === 'object' && tempConsentObject.revision == memoryData?.revision) {
             tempConsentObject['viewed'] = memoryData.viewed
 
             for (const type in tempConsentObject.data) {
                 tempConsentObject.data[type] = memoryData.data[type] ?? false
             }
+
+            tempConsentObject['uuid'] = memoryData.uuid
+            tempConsentObject['created_at'] = new Date(memoryData.created_at)
+            tempConsentObject['updated_at'] = new Date(memoryData.updated_at)
         }
 
         handleConsentObjectChange(tempConsentObject)
@@ -222,6 +234,10 @@ export const useCookify = (options: CookifyOptionsType) => {
 
         /* Save by default is saveByDefault if set to true */
         if (_this.saveByDefault === true) {
+            setConsentObject({
+                ...consentObject,
+                updated_at: new Date()
+            })
             handleConsentTrackingChange()
         }
     }, [])
