@@ -17,8 +17,11 @@ export const Collapsible: React.FC<ConsentDetailBodyCollapsibleProps> = ({ type,
         <div className="overflow-hidden">
             <div className="bg-gray-300 hover:bg-gray-400/60 rounded-lg p-3 flex gap-3">
                 <div onClick={handleToogleCollapse} className="mr-auto font-bold cursor-pointer">
+                    <span className="mr-1">
+                        {collapse ? '➖' : '➕'}
+                    </span>
                     {type.title}
-                    { type.body?.length > 0 && (
+                    {type.body?.length > 0 && (
                         <span className="inline-block relative bg-blue-600 rounded-lg px-2 py-0.5 text-xs font-bold leading-4 top-[-1px] ml-1">{type.body.length}</span>
                     )}
                 </div>
@@ -39,7 +42,7 @@ export const Collapsible: React.FC<ConsentDetailBodyCollapsibleProps> = ({ type,
                         <p>{type.description}</p>
                     </div>
 
-                    { type.body?.length > 0 && (
+                    {type.body?.length > 0 && (
                         <div className="overflow-x-auto">
                             <table className="w-full">
                                 <thead>

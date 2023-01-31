@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import '../../styles/index.css'
-import { CookifyProvider } from '../../context/cookifyContext'
+import { ConsentProps } from '../../types'
+import { useCookifyProvider } from '../../context/cookifyContext'
 import Pause from './pause'
-import IconCookie from '../../icons/cookie'
-import Detail from './detail/detail'
-import { CookifyConsentProps } from '../../types'
 import OpenConsent from './openConsent'
+import Detail from './detail/detail'
 
-export const Consent: React.FC<CookifyConsentProps> = ({settings, children}) => {
-    const {options, consent} = settings
+export const Consent: React.FC<ConsentProps> = ({consent}) => {
+    const {consentObject} = useCookifyProvider()
     const [pageURL, setPageURL] = useState('')
 
     const _this = {
@@ -21,13 +19,13 @@ export const Consent: React.FC<CookifyConsentProps> = ({settings, children}) => 
             url: consent?.paused?.url || 'undefined',
         },
         detail: {
-            title: consent?.secound_layer?.title || 'Manage Cookies',
-            description: consent?.secound_layer?.description || <>We use cookies to provide and secure our websites, as well as to analyze the usage of our websites, in order to offer you a great user experience. To learn more about our use of cookies see our <a href="#" style={{textDecoration: 'underline', fontWeight: 500}}>Privacy Policy</a>.</>
+            title: consent?.detail?.title || 'Manage Cookies',
+            description: consent?.detail?.description || <>We use cookies to provide and secure our websites, as well as to analyze the usage of our websites, in order to offer you a great user experience. To learn more about our use of cookies see our <a href="#" style={{textDecoration: 'underline', fontWeight: 500}}>Privacy Policy</a>.</>
         },
         table: {
             headers: consent?.table.headers || {},
             types: consent?.table.types || [],
-            typeDefault: options.typeDefault || 'necessary'
+            typeDefault: /*options.typeDefault ||*/ 'necessary'
         }
     }
 
@@ -42,10 +40,8 @@ export const Consent: React.FC<CookifyConsentProps> = ({settings, children}) => 
      */
     
     return (
-        <CookifyProvider options={options}>
-            {children}
-
-            {(_this.paused.url !== 'undefined' && _this.paused.url == pageURL) ? (
+        <>
+            {(_this.paused.url !== 'undefined' && _this.paused.url == pageURL && consentObject.viewed === false) ? (
                 <Pause
                     icon={_this.paused.icon}
                     title={_this.paused.title}
@@ -64,7 +60,7 @@ export const Consent: React.FC<CookifyConsentProps> = ({settings, children}) => 
                 </>
             )}
             
-        </CookifyProvider>
+        </>
     )
 }
 
