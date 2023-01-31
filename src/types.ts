@@ -177,6 +177,15 @@ export interface SupportPorps {
 /**
  * Consent
  */
+export interface ConsentOpenConsent {
+    icon: string
+}
+
+export interface ConsentPausedProps {
+    icon: ReactNode
+    title: string
+    description: string
+}
 
 /* Detail */
 export interface ConsentDetailWrapperProps extends HTMLAttributes<HTMLElement> {
@@ -188,8 +197,8 @@ export interface ConsentDetailHeaderProps {
 }
 
 export interface ConsentDetailBodyProps {
-    description: string,
-    table: any,
+    description: string
+    table: any
     reference: boolean
 }
 
@@ -198,7 +207,7 @@ export interface ConsentDetailFooterProps {
 }
 
 export interface ConsentDetailBodyCollapsibleProps {
-    type: any,
-    tableHeaders: any,
+    type: any
+    tableHeaders: any
     typeDefault: string
 }

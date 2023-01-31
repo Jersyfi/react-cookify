@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import '../../styles/index.css'
 import { CookifyProvider } from '../../context/cookifyContext'
+import Pause from './pause'
+import IconCookie from '../../icons/cookie'
 import Detail from './detail/detail'
 import { CookifyConsentProps } from '../../types'
+import OpenConsent from './openConsent'
 
 export const Consent: React.FC<CookifyConsentProps> = ({settings, children}) => {
     const {options, consent} = settings
@@ -43,22 +46,22 @@ export const Consent: React.FC<CookifyConsentProps> = ({settings, children}) => 
             {children}
 
             {(_this.paused.url !== 'undefined' && _this.paused.url == pageURL) ? (
-                <div className="fixed inset-x-3 sm:inset-x-5 bottom-3 sm:bottom-5 bg-white max-w-sm mr-auto shadow-lg border-2 rounded-lg w-fit">
-                    <div className="px-3 py-2 flex gap-3 items-center">
-                        <div className="text-2xl">{_this.paused.icon}</div>
-                        <div>
-                            <p className="text-xl font-semibold">{_this.paused.title}</p>
-                            <p>{_this.paused.description}</p>
-                        </div>
-                    </div>
-                </div>
-            ) : (
-                <Detail
-                    label={_this.detail}
-                    table={_this.table}
-                    support={_this.support}
-                    reference={_this.reference}
+                <Pause
+                    icon={_this.paused.icon}
+                    title={_this.paused.title}
+                    description={_this.paused.description}
                 />
+            ) : (
+                <>
+                    <OpenConsent icon="cookie"/>
+                    
+                    <Detail
+                        label={_this.detail}
+                        table={_this.table}
+                        support={_this.support}
+                        reference={_this.reference}
+                    />
+                </>
             )}
             
         </CookifyProvider>

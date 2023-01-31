@@ -7,7 +7,9 @@ All notable changes to `react-cookify` will be documented in this file.
 * Prepared for v2.0.0-beta.1 and seperated into different branches
 * Added uuid, created_at, updated_at & revision to `consentObject`
 * Modified the `CookifyConsent` components with UI changes to the detail layer
-* more... 
+* Added paused option to pause consent mananger on a specific page
+* Added floating button to open the consent manager
+* more...
 
 ## v0.6.16-beta.1 - 2023-01-22
 
