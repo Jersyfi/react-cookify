@@ -1,13 +1,11 @@
 import React from 'react'
-import { ConsentDetailFooterProps } from '../../../types'
 import { useCookifyProvider } from '../../../context/cookifyContext'
-import Support from '../support'
 
-export const Footer: React.FC<ConsentDetailFooterProps> = ({ support }) => {
+export const Footer: React.FC = () => {
     const {actionAccept, actionNecessary, actionAll} = useCookifyProvider()
     
     return (
-        <div className="grow-0 bg-gray-100 px-4 py-3 sm:px-6 grid gap-3 border-t">
+        <div className="relative sm:rounded-b-lg grow-0 bg-gray-100 px-4 py-3 sm:px-6 grid gap-3 border-t-2">
             <div className="flex flex-col sm:flex-row-reverse gap-3">
                 <button onClick={actionAll} className="inline-flex font-medium justify-center sm:w-full px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-md transition duration-500 text-white">
                     All
@@ -19,8 +17,6 @@ export const Footer: React.FC<ConsentDetailFooterProps> = ({ support }) => {
                     Necessary
                 </button>
             </div>
-
-            <Support display={support} />
         </div>
     )
 }

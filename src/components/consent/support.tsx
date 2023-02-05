@@ -7,7 +7,7 @@ export const Support: React.FC<SupportPorps> = ({display}) => {
     }
 
     return (
-        <div className="w-full text-sm text-center">
+        <div className="text-sm mt-1 text-black/50">
             Powered by <a className="font-bold" href="#">Cookify</a>
         </div>
     )

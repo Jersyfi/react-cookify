@@ -1,38 +1,25 @@
-import React, { useEffect, useState } from 'react'
-import { ConsentModalProps } from '../../../types'
-import { useCookifyProvider } from '../../../context/cookifyContext'
+import React from 'react'
+import { ConsentDetailProps } from '../../../types'
 import Wrapper from './wrapper'
 import Header from './header'
 import Body from './body/body'
 import Footer from './footer'
 
-export const Detail: React.FC<ConsentModalProps> = ({ label, table, support, reference }) => {
-    const {consentDisplayed} = useCookifyProvider()
-    /*const [displayed, setDisplayed] = useState()
-
-    const handleToggleDisplayed = () => {
-        setDisplayed(!displayed)
-    }
-
-    useEffect(() => {
-        handleToggle()
-    }, [consentDisplayed])*/
-
+export const Detail: React.FC<ConsentDetailProps> = ({ show, label, table, support, reference }) => {
     return (
-        <Wrapper className={'fixed inset-0 z-10 overflow-y-auto bg-black/30 ' + (consentDisplayed ? '' : 'hidden')}>
+        <Wrapper className={'fixed inset-0 z-10 bg-black/30 ' + (show ? '' : 'hidden')}>
             <Header
                 title={label.title}
+                support={support}
             />
 
             <Body
-                description={label.description}
+                desc={label.desc}
                 table={table}
                 reference={reference}
             />
 
-            <Footer
-                support={support}
-            />
+            <Footer />
         </Wrapper>
     )
 }
