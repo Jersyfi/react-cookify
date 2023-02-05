@@ -1,3 +1,69 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.cookify-theme.light {
+    --c-text: #000000;
+    --c-text-support: #000000;
+    --c-border: #000000;
+    --c-bg-primary: #000000;
+    --c-bg-secondary: #000000;
+    --c-collapse-bar-bg: #000000;
+    --c-collapse-bar-text: #000000;
+    --c-collapse-extend-bg: #000000;
+    --c-collapse-extend-text: #000000;
+    --c-collapse-extend-border: #000000;
+    --c-toggle-off: #000000;
+    --c-toggle-on: #000000;
+    --c-toggle-knob: #000000;
+    --c-badge-bg: #000000;
+    --c-badge-text: #000000;
+    --c-btn-week-bg: #000000;
+    --c-btn-strong-bg: #000000;
+    --c-btn-week-text: #000000;
+    --c-btn-strong-text: #000000;
+}
+
+.cookify-theme.dark {
+    --c-text: #000000;
+    --c-text-support: #000000;
+    --c-border: #000000;
+    --c-bg-primary: #000000;
+    --c-bg-secondary: #000000;
+    --c-collapse-bar-bg: #000000;
+    --c-collapse-bar-text: #000000;
+    --c-collapse-extend-bg: #000000;
+    --c-collapse-extend-text: #000000;
+    --c-collapse-extend-border: #000000;
+    --c-toggle-off: #000000;
+    --c-toggle-on: #000000;
+    --c-toggle-knob: #000000;
+    --c-badge-bg: #000000;
+    --c-badge-text: #000000;
+    --c-btn-week-bg: #000000;
+    --c-btn-strong-bg: #000000;
+    --c-btn-week-text: #000000;
+    --c-btn-strong-text: #000000;
+}
+
+.cookify-theme.hight-contrast {
+    --c-text: #000000;
+    --c-text-support: #000000;
+    --c-border: #000000;
+    --c-bg-primary: #000000;
+    --c-bg-secondary: #000000;
+    --c-collapse-bar-bg: #000000;
+    --c-collapse-bar-text: #000000;
+    --c-collapse-extend-bg: #000000;
+    --c-collapse-extend-text: #000000;
+    --c-collapse-extend-border: #000000;
+    --c-toggle-off: #000000;
+    --c-toggle-on: #000000;
+    --c-toggle-knob: #000000;
+    --c-badge-bg: #000000;
+    --c-badge-text: #000000;
+    --c-btn-week-bg: #000000;
+    --c-btn-strong-bg: #000000;
+    --c-btn-week-text: #000000;
+    --c-btn-strong-text: #000000;
+}

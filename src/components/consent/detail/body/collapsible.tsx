@@ -41,7 +41,7 @@ export const Collapsible: React.FC<ConsentDetailBodyCollapsibleProps> = ({ type,
             <div className={'px-2 ' + (collapse ? '' : 'hidden')}>
                 <div className="bg-gray-200/50 rounded-b-lg border-x-2 border-b-2 overflow-hidden">
                     <div className="p-3">
-                        <p>{type.description}</p>
+                        <p>{type.desc}</p>
                     </div>
 
                     {type.body?.length > 0 && (
