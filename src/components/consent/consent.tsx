@@ -14,6 +14,7 @@ export const Consent: React.FC<ConsentProps> = ({consent}) => {
 
     const _this = {
         support: consent?.support ?? true,
+        theme: ['light', 'dark', 'high-contrast', 'custom'].includes(consent?.theme) ? consent?.theme : 'light',
         reference: () => {
             const reference = consent?.reference ?? false
 
@@ -58,7 +59,6 @@ export const Consent: React.FC<ConsentProps> = ({consent}) => {
     /* Get the URL for pageURL */
     useEffect(() => {
         setPageURL(window.location.pathname)
-
     }, [])
 
     /* Listen for consentDisplayed change and decide what consent window to open */
@@ -80,7 +80,7 @@ export const Consent: React.FC<ConsentProps> = ({consent}) => {
     }, [consentDisplayed])
     
     return (
-        <div id="cookify">
+        <div id="cookify" className={'cookify-theme-' + _this.theme}>
             {(_this.paused.url !== 'undefined' && _this.paused.url == pageURL && consentObject.viewed === false) ? (
                 <Pause
                     icon={_this.paused.icon}
@@ -93,8 +93,8 @@ export const Consent: React.FC<ConsentProps> = ({consent}) => {
 
                     {/* Info */}
                     <div className={( _this.force && 'fixed inset-0 z-10 bg-black/30') + (infoDisplayed ? '' : ' hidden')}>
-                        <div className="fixed inset-x-3 sm:inset-x-5 bottom-3 sm:bottom-5 bg-white max-w-sm mr-auto shadow-lg border-2 rounded-lg w-fit">
-                            <div className="px-4 py-3 grid gap-6 items-center">
+                        <div className="fixed inset-x-3 sm:inset-x-5 bottom-3 sm:bottom-5 bg-[var(--c-bg-primary)] max-w-sm mr-auto shadow-lg border-2 rounded-[var(--c-border-radius)] w-fit">
+                            <div className="px-4 py-3 grid gap-6 items-center text-[var(--c-text)]">
                                 <div>
                                     <p className="text-2xl font-semibold mb-1">{_this.info.title}</p>
                                     <Support display={_this.support} />
@@ -126,15 +126,15 @@ export const Consent: React.FC<ConsentProps> = ({consent}) => {
                                         }
 
                                         if (button.schema == 'week') {
-                                            schema = 'bg-gray-600 hover:bg-gray-500 text-white'
+                                            schema = 'bg-[var(--c-btn-week-bg)] hover:bg-gray-500 text-[var(--c-btn-week-text)]'
                                         } else if (button.schema == 'strong') {
-                                            schema = 'bg-blue-600 hover:bg-blue-500 text-white'
+                                            schema = 'bg-[var(--c-btn-strong-bg)] hover:bg-blue-500 text-[var(--c-btn-strong-text)]'
                                         }
 
                                         return (
                                             <button
                                                 key={index}
-                                                className={'inline-flex font-medium justify-center sm:w-full px-4 py-2 rounded-md transition duration-500 ' + schema}
+                                                className={'inline-flex font-medium justify-center sm:w-full px-4 py-2 rounded-[var(--c-btn-border-radius)] transition duration-500 ' + schema}
                                                 onClick={action}
                                             >
                                                 {button.label}

@@ -5,7 +5,7 @@ export const Wrapper: React.FC<ConsentDetailWrapperProps> = ({ children, ...rest
     return (
         <div {...rest}>
             <div className="flex min-h-full items-end justify-center text-center sm:items-center">
-                <div className="flex flex-col h-screen sm:h-fit sm:max-h-[36rem] w-screen sm:w-fit sm:max-w-xl md:max-w-2xl lg:max-w-3xl transform sm:border-2 sm:rounded-lg bg-white text-left shadow-2xl transition-all sm:my-8">
+                <div className="flex flex-col h-screen sm:h-fit sm:max-h-[36rem] w-screen sm:w-fit sm:max-w-xl md:max-w-2xl lg:max-w-3xl transform sm:border-2 border-[var(--c-border)] sm:rounded-[var(--c-border-radius)] bg-[var(--c-bg-primary)] text-[var(--c-text)] text-left shadow-2xl transition-all sm:my-8">
                     {children}
                 </div>
             </div>

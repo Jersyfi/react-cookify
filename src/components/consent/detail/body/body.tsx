@@ -36,7 +36,7 @@ export const Body: React.FC<ConsentDetailBodyProps> = ({ desc, table, reference 
                 )}
 
                 {reference !== false && (
-                    <div className="border-2 rounded-lg p-3">
+                    <div className="border-2 rounded-[var(--c-body-border-radius)] p-3">
                         <p className="mb-3">{reference}</p>
                         
                         <p><b>UUID:</b> {consentObject.uuid}</p>
