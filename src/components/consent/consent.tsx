@@ -93,10 +93,10 @@ export const Consent: React.FC<ConsentProps> = ({consent}) => {
 
                     {/* Info */}
                     <div className={( _this.force && 'fixed inset-0 z-10 bg-black/30') + (infoDisplayed ? '' : ' hidden')}>
-                        <div className="fixed inset-x-3 sm:inset-x-5 bottom-3 sm:bottom-5 bg-[var(--c-bg-primary)] max-w-sm mr-auto shadow-lg border-2 rounded-[var(--c-border-radius)] w-fit">
-                            <div className="px-4 py-3 grid gap-6 items-center text-[var(--c-text)]">
+                        <div className="fixed inset-x-3 sm:inset-x-5 bottom-3 sm:bottom-5 bg-[var(--c-bg-primary-color)] max-w-sm mr-auto shadow-lg border-2 rounded-[var(--c-border-radius)] w-fit">
+                            <div className="px-4 py-3 grid gap-6 items-center text-[var(--c-text-color)]">
                                 <div>
-                                    <p className="text-2xl font-semibold mb-1">{_this.info.title}</p>
+                                    <p className="text-2xl font-semibold mb-1 text-[var(--c-text-title-color)]">{_this.info.title}</p>
                                     <Support display={_this.support} />
                                 </div>
 
@@ -126,9 +126,9 @@ export const Consent: React.FC<ConsentProps> = ({consent}) => {
                                         }
 
                                         if (button.schema == 'week') {
-                                            schema = 'bg-[var(--c-btn-week-bg)] hover:bg-gray-500 text-[var(--c-btn-week-text)]'
+                                            schema = 'bg-[var(--c-btn-week-bg-color)] hover:bg-gray-500 text-[var(--c-btn-week-text-color)]'
                                         } else if (button.schema == 'strong') {
-                                            schema = 'bg-[var(--c-btn-strong-bg)] hover:bg-blue-500 text-[var(--c-btn-strong-text)]'
+                                            schema = 'bg-[var(--c-btn-strong-bg-color)] hover:bg-blue-500 text-[var(--c-btn-strong-text-color)]'
                                         }
 
                                         return (

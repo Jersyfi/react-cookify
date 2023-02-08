@@ -2,95 +2,164 @@
 @tailwind components;
 @tailwind utilities;
 
+#cookify .scrollbar {
+	scrollbar-color: var(--c-sb-thumb-color) var(--c-sb-track-color);
+}
+
+#cookify .scrollbar::-webkit-scrollbar {
+    width: var(--c-sb-width);
+}
+
+#cookify .scrollbar::-webkit-scrollbar-track {
+    background: var(--c-sb-track-color);
+}
+
+#cookify .scrollbar::-webkit-scrollbar-thumb {
+    background: var(--c-sb-thumb-color);
+    border-radius: var(--c-sb-thumb-border-radius);
+    border: var(--c-sb-thumb-border-width) solid transparent;
+    background-clip: content-box;
+}
+
+#cookify .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--c-sb-thumb-hover-color);
+    background-clip: content-box;
+}
+
 .cookify-theme-light {
-    --c-text: rgb(0, 0, 0);
-    --c-text-support: rgb(192, 192, 192);
-    --c-border: rgb(229 231 235);
+    /* General */
+    --c-text-color: rgb(0, 0, 0);
+    --c-text-title-color: rgb(0, 0, 0);
+    --c-text-by-color: rgb(192, 192, 192);
+    --c-border-color: rgb(229 231 235);
     --c-border-radius: 0.5rem;
-    --c-bg-primary: rgb(255, 255, 255);
-    --c-bg-secondary: rgb(243, 244, 246);
-    --c-collapse-bar-bg: rgb(209, 213, 219);
-    --c-collapse-bar-bg-hover: rgb(182, 185, 191);
-    --c-collapse-bar-text: rgb(0, 0, 0);
-    --c-collapse-extend-bg: rgb(242, 243, 245);
-    --c-collapse-extend-text: rgb(0, 0, 0);
-    --c-collapse-extend-border: rgb(229 231 235);
-    --c-collapse-extend-padding: 0.5rem;
-    --c-collapse-table-header-bg: rgb(225, 228, 232);
-    --c-collapse-table-hover-bg: rgb(236, 237, 240);
-    --c-body-border-radius: 0.5rem;
-    --c-toggle-off: rgb(55, 65, 81);
-    --c-toggle-on: rgb(36, 99, 235);
-    --c-toggle-knob: rgb(255, 255, 255);
-    --c-toggle-ring: rgb(29, 64, 175);
-    --c-badge-bg: rgb(36, 99, 235);
-    --c-badge-text: rgb(255, 255, 255);
-    --c-badge-border-radius: 0.5rem;
-    --c-btn-strong-bg: rgb(36, 99, 235);
-    --c-btn-strong-text: rgb(255, 255, 255);
-    --c-btn-week-bg: rgb(75, 85, 99);
-    --c-btn-week-text: rgb(255, 255, 255);
+    --c-bg-primary-color: rgb(255, 255, 255);
+    --c-bg-secondary-color: rgb(243, 244, 246);
+    /* Collapse */
+    --c-c-bar-bg-color: rgb(209, 213, 219);
+    --c-c-bar-bg-hover-color: rgb(182, 185, 191);
+    --c-c-bar-text-color: rgb(0, 0, 0);
+    --c-c-bar-border-radius: 0.5rem;
+    --c-c-bar-badge-bg-color: rgb(36, 99, 235);
+    --c-c-bar-badge-text-color: rgb(255, 255, 255);
+    --c-c-bar-badge-border-radius: 0.5rem;
+    --c-c-bar-toggle-off-color: rgb(55, 65, 81);
+    --c-c-bar-toggle-on-color: rgb(36, 99, 235);
+    --c-c-bar-toggle-knob-color: rgb(255, 255, 255);
+    --c-c-bar-toggle-ring-color: rgb(29, 64, 175);
+    --c-c-extend-bg-color: rgb(242, 243, 245);
+    --c-c-extend-text-color: rgb(0, 0, 0);
+    --c-c-extend-border-color: rgb(229 231 235);
+    --c-c-extend-border-radius: 0.5rem;
+    --c-c-extend-padding: 0.5rem;
+    --c-c-extend-table-bg-header-color: rgb(225, 228, 232);
+    --c-c-extend-table-bg-hover-color: rgb(236, 237, 240);
+    /* Refferenze */
+    --c-ref-border-color: rgb(229 231 235);
+    --c-ref-border-radius: 0.5rem;
+    /* Button */
+    --c-btn-strong-bg-color: rgb(36, 99, 235);
+    --c-btn-strong-text-color: rgb(255, 255, 255);
+    --c-btn-week-bg-color: rgb(75, 85, 99);
+    --c-btn-week-text-color: rgb(255, 255, 255);
     --c-btn-border-radius: 0.375rem;
+    /* Scrollbar */
+    --c-sb-width: 16px;
+    --c-sb-track-color: transparent;
+    --c-sb-thumb-color: rgb(0, 0, 0, 0.6);
+    --c-sb-thumb-hover-color: rgba(0, 0, 0, 0.4);
+    --c-sb-thumb-border-width: 4px;
+    --c-sb-thumb-border-radius: 8px;
 }
 
 .cookify-theme-dark {
-    --c-text: rgb(255, 255, 255);
-    --c-text-support: rgb(128, 128, 128);
-    --c-border: rgb(26, 26, 26);
+    /* General */
+    --c-text-color: rgb(255, 255, 255);
+    --c-text-title-color: rgb(255, 255, 255);
+    --c-text-by-color: rgb(138, 138, 138);
+    --c-border-color: rgb(34, 34, 34);
     --c-border-radius: 0.5rem;
-    --c-bg-primary: rgb(34, 34, 34);
-    --c-bg-secondary: rgb(82, 82, 82);
-    --c-collapse-bar-bg: rgb(209, 213, 219);
-    --c-collapse-bar-bg-hover: rgb(182, 185, 191);
-    --c-collapse-bar-text: rgb(0, 0, 0);
-    --c-collapse-extend-bg: rgb(242, 243, 245);
-    --c-collapse-extend-text: rgb(0, 0, 0);
-    --c-collapse-extend-border: rgb(229 231 235);
-    --c-collapse-extend-padding: 0.5rem;
-    --c-collapse-table-header-bg: rgb(225, 228, 232);
-    --c-collapse-table-hover-bg: rgb(236, 237, 240);
-    --c-body-border-radius: 0.5rem;
-    --c-toggle-off: rgb(55, 65, 81);
-    --c-toggle-on: rgb(36, 99, 235);
-    --c-toggle-knob: rgb(255, 255, 255);
-    --c-toggle-ring: rgb(29, 64, 175);
-    --c-badge-bg: rgb(36, 99, 235);
-    --c-badge-text: rgb(255, 255, 255);
-    --c-badge-border-radius: 0.5rem;
-    --c-btn-strong-bg: rgb(36, 99, 235);
-    --c-btn-strong-text: rgb(255, 255, 255);
-    --c-btn-week-bg: rgb(75, 85, 99);
-    --c-btn-week-text: rgb(255, 255, 255);
+    --c-bg-primary-color: rgb(20, 20, 20);
+    --c-bg-secondary-color: rgb(0, 0, 0);
+    /* Collapse */
+    --c-c-bar-bg-color: rgb(70, 70, 70);
+    --c-c-bar-bg-hover-color: rgb(80, 80, 80);
+    --c-c-bar-text-color: rgb(255, 255, 255);
+    --c-c-bar-border-radius: 0.5rem;
+    --c-c-bar-badge-bg-color: rgb(36, 99, 235);
+    --c-c-bar-badge-text-color: rgb(255, 255, 255);
+    --c-c-bar-badge-border-radius: 0.5rem;
+    --c-c-bar-toggle-off-color: rgb(198, 203, 212);
+    --c-c-bar-toggle-on-color: rgb(36, 99, 235);
+    --c-c-bar-toggle-knob-color: rgb(0, 0, 0);
+    --c-c-bar-toggle-ring-color: rgb(29, 64, 175);
+    --c-c-extend-bg-color: rgb(39, 39, 39);
+    --c-c-extend-text-color: rgb(255, 255, 255);
+    --c-c-extend-border-color: rgb(0, 0, 0);
+    --c-c-extend-border-radius: 0.5rem;
+    --c-c-extend-padding: 0.5rem;
+    --c-c-extend-table-bg-header-color: rgb(88, 88, 88);
+    --c-c-extend-table-bg-hover-color: rgb(85, 85, 85);
+    /* Refferenze */
+    --c-ref-border-color: rgb(255, 255, 255);
+    --c-ref-border-radius: 0.5rem;
+    /* Button */
+    --c-btn-strong-bg-color: rgb(36, 99, 235);
+    --c-btn-strong-text-color: rgb(255, 255, 255);
+    --c-btn-week-bg-color: rgb(75, 85, 99);
+    --c-btn-week-text-color: rgb(255, 255, 255);
     --c-btn-border-radius: 0.375rem;
+    /* Scrollbar */
+    --c-sb-width: 16px;
+    --c-sb-track-color: transparent;
+    --c-sb-thumb-color: #ffffff;
+    --c-sb-thumb-hover-color: rgba(255, 255, 255, 0.8);
+    --c-sb-thumb-border-width: 4px;
+    --c-sb-thumb-border-radius: 8px;
 }
 
 .cookify-theme-high-contrast {
-    --c-text: rgb(255, 255, 255);
-    --c-text-support: rgb(255, 255, 0);
-    --c-border: rgb(255, 255, 255);
+    /* General */
+    --c-text-color: rgb(255, 255, 255);
+    --c-text-title-color: rgb(255, 255, 255);
+    --c-text-by-color: rgb(255, 255, 0);
+    --c-border-color: rgb(255, 255, 255);
     --c-border-radius: 0rem;
-    --c-bg-primary: rgb(0, 0, 0);
-    --c-bg-secondary: rgb(0, 0, 0);
-    --c-collapse-bar-bg: rgb(255, 255, 255);
-    --c-collapse-bar-bg-hover: rgb(255, 255, 255);
-    --c-collapse-bar-text: rgb(0, 0, 0);
-    --c-collapse-extend-bg: rgb(0, 0, 0);
-    --c-collapse-extend-text: rgb(255, 255, 255);
-    --c-collapse-extend-border: rgb(255, 255, 255);
-    --c-collapse-extend-padding: 0rem;
-    --c-collapse-table-header-bg: rgb(0, 0, 0);
-    --c-collapse-table-hover-bg: rgb(0, 0, 0);
-    --c-body-border-radius: 0rem;
-    --c-toggle-off: rgb(0, 0, 0);
-    --c-toggle-on: rgb(62, 242, 62);
-    --c-toggle-knob: rgb(255, 255, 255);
-    --c-toggle-ring: rgb(255, 255, 255);
-    --c-badge-bg: rgb(0, 0, 0);
-    --c-badge-text: rgb(255, 255, 255);
-    --c-badge-border-radius: 0rem;
-    --c-btn-strong-bg: rgb(255, 255, 0);
-    --c-btn-strong-text: rgb(0, 0, 0);
-    --c-btn-week-bg: rgb(255, 255, 255);
-    --c-btn-week-text: rgb(0, 0, 0);
+    --c-bg-primary-color: rgb(0, 0, 0);
+    --c-bg-secondary-color: rgb(0, 0, 0);
+    /* Collapse */
+    --c-c-bar-bg-color: rgb(255, 255, 255);
+    --c-c-bar-bg-hover-color: rgb(255, 255, 255);
+    --c-c-bar-text-color: rgb(0, 0, 0);
+    --c-c-bar-border-radius: 0rem;
+    --c-c-bar-badge-bg-color: rgb(0, 0, 0);
+    --c-c-bar-badge-text-color: rgb(255, 255, 255);
+    --c-c-bar-badge-border-radius: 0rem;
+    --c-c-bar-toggle-off-color: rgb(0, 0, 0);
+    --c-c-bar-toggle-on-color: rgb(62, 242, 62);
+    --c-c-bar-toggle-knob-color: rgb(255, 255, 255);
+    --c-c-bar-toggle-ring-color: rgb(255, 255, 255);
+    --c-c-extend-bg-color: rgb(0, 0, 0);
+    --c-c-extend-text-color: rgb(255, 255, 255);
+    --c-c-extend-border-color: rgb(255, 255, 255);
+    --c-c-extend-border-radius: 0rem;
+    --c-c-extend-padding: 0rem;
+    --c-c-extend-table-bg-header-color: rgb(0, 0, 0);
+    --c-c-extend-table-bg-hover-color: rgb(0, 0, 0);
+    /* Refferenze */
+    --c-ref-border-color: rgb(255, 255, 255);
+    --c-ref-border-radius: 0rem;
+    /* Button */
+    --c-btn-strong-bg-color: rgb(255, 255, 0);
+    --c-btn-strong-text-color: rgb(0, 0, 0);
+    --c-btn-week-bg-color: rgb(255, 255, 255);
+    --c-btn-week-text-color: rgb(0, 0, 0);
     --c-btn-border-radius: 0rem;
+    /* Scrollbar */
+    --c-sb-width: 16px;
+    --c-sb-track-color: transparent;
+    --c-sb-thumb-color: #ffffff;
+    --c-sb-thumb-hover-color: rgb(255, 255, 0);
+    --c-sb-thumb-border-width: 4px;
+    --c-sb-thumb-border-radius: 8px;
 }

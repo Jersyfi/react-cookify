@@ -7,7 +7,7 @@ export const Support: React.FC<SupportPorps> = ({display}) => {
     }
 
     return (
-        <div className="text-sm mt-1 text-[var(--c-text-support)]">
+        <div className="text-sm mt-1 text-[var(--c-text-by-color)]">
             Powered by <a className="font-bold" href="#">Cookify</a>
         </div>
     )
