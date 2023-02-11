@@ -35,13 +35,13 @@ export const Body: React.FC<ConsentDetailBodyProps> = ({ desc, table, reference 
                     }</div>
                 )}
 
-                {reference !== false && (
+                {typeof reference == 'object' && (
                     <div className="border-2 border-[var(--c-ref-border-color)] rounded-[var(--c-ref-border-radius)] p-3">
-                        <p className="mb-3">{reference}</p>
+                        <p className="mb-3">{reference.desc}</p>
                         
-                        <p><b>UUID:</b> {consentObject.uuid}</p>
-                        <p><b>Accepted:</b> {at.created}</p>
-                        <p><b>Updated:</b> {at.updated}</p>
+                        <p><b>{reference.uuid}:</b> {consentObject.uuid}</p>
+                        <p><b>{reference.accepted}:</b> {at.created}</p>
+                        <p><b>{reference.updated}:</b> {at.updated}</p>
                     </div>
                 )}
             </div>

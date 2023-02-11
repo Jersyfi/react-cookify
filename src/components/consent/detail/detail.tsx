@@ -5,18 +5,18 @@ import Header from './header'
 import Body from './body/body'
 import Footer from './footer'
 
-export const Detail: React.FC<ConsentDetailProps> = ({ show, label, table, support, reference }) => {
+export const Detail: React.FC<ConsentDetailProps> = ({ show, content, table, support }) => {
     return (
         <Wrapper className={'fixed inset-0 z-10 bg-black/30 ' + (show ? '' : 'hidden')}>
             <Header
-                title={label.title}
+                title={content.title}
                 support={support}
             />
 
             <Body
-                desc={label.desc}
+                desc={content.desc}
                 table={table}
-                reference={reference}
+                reference={content.reference()}
             />
 
             <Footer />

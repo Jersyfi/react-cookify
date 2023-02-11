@@ -81,14 +81,29 @@ export interface SupportPorps {
  */
 
 /* Extentions */
-export interface ReferenceType {
-    reference: boolean | string
+type ConsentType = {
+    support?: boolean
+    theme?: ['light', 'dark', 'high-contrast', 'custom']
+    first?: ['info', 'detail']
+    force?: boolean
+    icon?: ['cookie', 'fingerprint'] | string
+}
+
+type ReferenceType = false | {
+    desc: string
+    uuid: string
+    accepted: string
+    updated: string
+}
+
+interface ReferenceProps {
+    reference: ReferenceType
 }
 
 /* Properties */
 /* Consent */
 export interface ConsentProps {
-    consent: any
+    consent: ConsentType
 }
 
 export interface ConsentOpenConsent {
@@ -102,13 +117,37 @@ export interface ConsentPausedProps {
 }
 
 /* Info */
+export interface ConsentInfoProps {
+    show: boolean
+    force: boolean
+    content: any
+    openManage: () => void
+    support: boolean
+}
+
+export interface ConsentInfoWrapperProps extends HTMLAttributes<HTMLElement> {
+    children: ReactNode
+}
+
+export interface ConsentInfoButtonsProps {
+    buttons: [
+        {
+            action: string,
+            label: string,
+            schema: string
+        }
+    ]
+    openManage: () => void
+}
 
 /* Detail */
-export interface ConsentDetailProps extends ReferenceType {
+export interface ConsentDetailProps {
     show: boolean
-    label: {
+    content: {
         title: string
         desc: string
+        reference: () => ReferenceType
+        buttons: any
     },
     table: any
     support: boolean
@@ -123,7 +162,7 @@ export interface ConsentDetailHeaderProps {
     support: boolean
 }
 
-export interface ConsentDetailBodyProps extends ReferenceType {
+export interface ConsentDetailBodyProps extends ReferenceProps {
     desc: string
     table: any
 }

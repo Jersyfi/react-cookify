@@ -19,7 +19,7 @@ export const Collapsible: React.FC<ConsentDetailBodyCollapsibleProps> = ({ type,
         <div className="overflow-hidden">
             <div className="bg-[var(--c-c-bar-bg-color)] hover:bg-[var(--c-c-bar-bg-hover-color)] rounded-[var(--c-c-bar-border-radius)] p-3 flex gap-3">
                 <div onClick={handleToogleCollapse} className="flex items-center gap-1 mr-auto font-bold cursor-pointer text-[var(--c-c-bar-text-color)]">
-                    <span className="inline-block w-3.5">
+                    <span className="inline-block w-3.5 fill-[var(--c-c-bar-text-color)]">
                         {collapse ? <IconChevronUpSolid /> : <IconChevronDownSolid />}
                     </span>
                     {type.title}

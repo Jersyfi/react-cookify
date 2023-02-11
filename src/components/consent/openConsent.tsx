@@ -7,17 +7,24 @@ import IconFingerprint from '../../icons/fingerprint'
 export const OpenConsent: React.FC<ConsentOpenConsent> = ({icon}) => {
     const {consentDisplayed, handleConsentDisplayedChange} = useCookifyProvider()
 
+    const oneIconOrText = () => {
+        switch (icon) {
+            case 'cookie':
+                return <IconCookie />
+            case 'fingerprint':
+                return <IconFingerprint />
+            default:
+                return <p>{icon}</p>
+        }
+    }
+
     return (
         <div
             onClick={() => handleConsentDisplayedChange(true)}
-            className={'fixed inset-x-3 sm:inset-x-5 bottom-3 sm:bottom-5 bg-blue-600 hover:bg-blue-500 max-w-sm mr-auto shadow-lg shadow-blue-500/50 border-2 rounded-full w-fit cursor-pointer transition ' + (consentDisplayed ? 'hidden' : '')}
+            className={'fixed inset-x-3 sm:inset-x-5 bottom-3 sm:bottom-5 bg-[var(--c-open-bg-color)] hover:bg-[var(--c-open-bg-hover-color)] max-w-sm mr-auto shadow-lg border-2 border-[var(--c-border-color)] rounded-[var(--c-open-border-radius)] w-fit cursor-pointer transition text-[var(--c-open-text-color)] ' + (consentDisplayed ? 'hidden' : '')}
         >
             <div className="p-1">
-                {icon == 'cookie' ? (
-                    <IconCookie />
-                ) : (
-                    <IconFingerprint />
-                )}
+                {oneIconOrText()}
             </div>
         </div>
     )

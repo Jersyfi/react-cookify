@@ -4,10 +4,10 @@ import { useCookifyProvider } from '../../context/cookifyContext'
 import Pause from './pause'
 import OpenConsent from './openConsent'
 import Detail from './detail/detail'
-import Support from './support'
+import Info from './info/info'
 
-export const Consent: React.FC<ConsentProps> = ({consent}) => {
-    const {consentObject, consentDisplayed, actionNecessary, actionAccept, actionAll} = useCookifyProvider()
+export const Consent: React.FC<ConsentProps> = ({ consent }) => {
+    const {consentObject, consentDisplayed} = useCookifyProvider()
     const [pageURL, setPageURL] = useState('')
     const [infoDisplayed, setInfoDisplayed] = useState(false)
     const [detailDisplayed, setDetailDisplayed] = useState(false)
@@ -15,19 +15,10 @@ export const Consent: React.FC<ConsentProps> = ({consent}) => {
     const _this = {
         support: consent?.support ?? true,
         theme: ['light', 'dark', 'high-contrast', 'custom'].includes(consent?.theme) ? consent?.theme : 'light',
-        reference: () => {
-            const reference = consent?.reference ?? false
-
-            if (reference === true) {
-                return 'Please provide the below information when you hand in a request about cookies.'
-            } else if (typeof reference == 'string') {
-                return reference
-            } else {
-                return false
-            }
-        },
         first: consent?.first || 'info',
         force: consent?.force ?? false,
+        icon: consent?.icon || 'cookie',
+        reopen: consent?.reopen ?? true,
         paused: {
             title: consent?.paused?.title || 'Consent Manger Notice',
             desc: consent?.paused?.desc || 'The consent manager is paused on this side to read the privacy policy.',
@@ -42,6 +33,20 @@ export const Consent: React.FC<ConsentProps> = ({consent}) => {
         detail: {
             title: consent?.detail?.title || 'Manage your consent settings',
             desc: consent?.detail?.desc || <>We want your visit to our website to be awesome, so we use cookies to give you the best expirience and for remembering preferences. You can manage your cookie preferences at any time. To learn more about our use of cookies feel free to check out our <a href="#" style={{textDecoration: 'underline', fontWeight: 500}}>privacy policy</a>.</>,
+            reference: () => {
+                const reference = consent?.detail?.reference ?? true
+            
+                if (typeof reference == 'object' || reference == true) {
+                    return {
+                        desc: consent?.detail?.reference?.desc || 'Please provide the below information when you hand in a request about cookies.',
+                        uuid: consent?.detail?.reference?.uuid || 'UUID',
+                        accepted: consent?.detail?.reference?.accepted || 'Accepted',
+                        updated: consent?.detail?.reference?.updated || 'Updated'
+                    }
+                } else {
+                    return false
+                }
+            },
             buttons: consent?.detail?.buttons || []
         },
         table: {
@@ -89,69 +94,21 @@ export const Consent: React.FC<ConsentProps> = ({consent}) => {
                 />
             ) : (
                 <>
-                    <OpenConsent icon="cookie"/>
+                    <OpenConsent icon={_this.icon}/>
 
-                    {/* Info */}
-                    <div className={( _this.force && 'fixed inset-0 z-10 bg-black/30') + (infoDisplayed ? '' : ' hidden')}>
-                        <div className="fixed inset-x-3 sm:inset-x-5 bottom-3 sm:bottom-5 bg-[var(--c-bg-primary-color)] max-w-sm mr-auto shadow-lg border-2 rounded-[var(--c-border-radius)] w-fit">
-                            <div className="px-4 py-3 grid gap-6 items-center text-[var(--c-text-color)]">
-                                <div>
-                                    <p className="text-2xl font-semibold mb-1 text-[var(--c-text-title-color)]">{_this.info.title}</p>
-                                    <Support display={_this.support} />
-                                </div>
-
-                                <p>{_this.info.desc}</p>
-
-                                <div className="flex flex-col gap-3">
-                                    {_this.info.buttons.map((button: any, index: number) => {
-                                        let action, schema
-
-                                        switch (button.action) {
-                                            case 'necessary':
-                                                action = actionNecessary
-                                                break
-
-                                            case 'accept':
-                                                action = actionAccept
-                                                break
-
-                                            case 'all':
-                                                action = actionAll
-                                                break
-
-                                            case 'manage':
-                                            default:
-                                                action = handleOnClickInfoManage
-                                                break
-                                        }
-
-                                        if (button.schema == 'week') {
-                                            schema = 'bg-[var(--c-btn-week-bg-color)] hover:bg-gray-500 text-[var(--c-btn-week-text-color)]'
-                                        } else if (button.schema == 'strong') {
-                                            schema = 'bg-[var(--c-btn-strong-bg-color)] hover:bg-blue-500 text-[var(--c-btn-strong-text-color)]'
-                                        }
-
-                                        return (
-                                            <button
-                                                key={index}
-                                                className={'inline-flex font-medium justify-center sm:w-full px-4 py-2 rounded-[var(--c-btn-border-radius)] transition duration-500 ' + schema}
-                                                onClick={action}
-                                            >
-                                                {button.label}
-                                            </button>
-                                        )
-                                    })}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <Info 
+                        show={infoDisplayed}
+                        force={_this.force}
+                        content={_this.info}
+                        openManage={handleOnClickInfoManage}
+                        support={_this.support}
+                    />
                     
                     <Detail
                         show={detailDisplayed}
-                        label={_this.detail}
+                        content={_this.detail}
                         table={_this.table}
                         support={_this.support}
-                        reference={_this.reference()}
                     />
                 </>
             )}
