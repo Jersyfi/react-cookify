@@ -6,7 +6,7 @@
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
     "build": "rollup -c --bundleConfigAsCjs",
     "build:watch": "rollup -c --bundleConfigAsCjs -w",
-    "format": "prettier --ignore-path .gitignore --write 'src/**/*.{js,jsx,ts,tsx,json}'"
+    "format": "prettier --ignore-path .gitignore --write src/**/*.{js,jsx,ts,tsx,json}"
   },
   "repository": {
     "type": "git",
