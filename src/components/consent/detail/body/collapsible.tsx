@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
+import { ConsentDetailBodyCollapsibleProps, TableRowType } from '../../../../types'
 import IconChevronUpSolid from '../../../../icons/chevronUpSolid'
 import IconChevronDownSolid from '../../../../icons/chevronDownSolid'
-import { ConsentDetailBodyCollapsibleProps } from '../../../../types'
 import { Input } from '../../../input'
 
 export const Collapsible: React.FC<ConsentDetailBodyCollapsibleProps> = ({ type, tableHeaders, typeDefault }) => {
@@ -61,7 +61,7 @@ export const Collapsible: React.FC<ConsentDetailBodyCollapsibleProps> = ({ type,
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {type.body.map((row: any, index: number) => (
+                                    {type.body.map((row: TableRowType, index: number) => (
                                         <tr
                                             key={index}
                                             className={'max-md:px-3 max-md:py-2 max-md:flex max-md:flex-col max-md:gap-1 hover:bg-[var(--c-c-extend-table-bg-hover-color)] border-[var(--c-c-extend-border-color)] ' + ((index + 1) < type.body.length ? 'border-b-2' : '')}

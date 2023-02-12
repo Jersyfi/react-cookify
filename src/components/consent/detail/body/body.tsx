@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ConsentDetailBodyProps } from '../../../../types'
+import { ConsentDetailBodyProps, TableType } from '../../../../types'
 import { useCookifyProvider } from '../../../../context/cookifyContext'
 import Collapsible from './collapsible'
 
@@ -24,7 +24,7 @@ export const Body: React.FC<ConsentDetailBodyProps> = ({ desc, table, reference 
 
                 {table.types.length > 0 && (
                     <div className="grid gap-3">{
-                        table.types.map((type: any, index: number) => (
+                        table.types.map((type: TableType, index: number) => (
                             <Collapsible
                                 key={index}
                                 type={type}

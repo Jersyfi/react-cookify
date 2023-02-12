@@ -19,7 +19,9 @@ export const Detail: React.FC<ConsentDetailProps> = ({ show, content, table, sup
                 reference={content.reference()}
             />
 
-            <Footer />
+            <Footer
+                buttons={content.buttons}
+            />
         </Wrapper>
     )
 }

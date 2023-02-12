@@ -45,20 +45,6 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     name: string
 }
 
-export type CookifyModalType = {
-    [key: string]: any
-}
-
-export type ConsentSettingsType = {
-    options: CookifyOptionsType,
-    consent: CookifyModalType
-}
-
-export interface CookifyConsentProps {
-    settings: ConsentSettingsType,
-    children: ReactNode
-}
-
 export interface CollapsibleTypeProps {
     type: any,
     typeDefault: string,
@@ -75,22 +61,64 @@ export interface SupportPorps {
 
 
 /*
- * NEW
- * NEW
- * NEW
+ * Core
  */
 
-/* Extentions */
-type ConsentType = {
-    support?: boolean
-    theme?: ['light', 'dark', 'high-contrast', 'custom']
-    first?: ['info', 'detail']
-    force?: boolean
-    icon?: ['cookie', 'fingerprint'] | string
+// ?
+
+/*
+ * Consent
+ */
+
+/* Initialization */
+export interface CookifyConsentProps {
+    settings: ConsentSettingsType,
+    children: ReactNode
 }
 
+export type ConsentSettingsType = {
+    options: CookifyOptionsType,
+    consent: ConsentType
+}
+
+type ConsentType = {
+    support?: boolean
+    theme?: 'light' | 'dark' | 'high-contrast' | 'custom'
+    first?: 'info' | 'detail'
+    force?: boolean
+    icon?: 'cookie' | 'fingerprint' | string
+    reopen?: boolean
+    paused?: {
+        title?: string
+        desc?: string
+        icon?: string
+        url?: string
+    }
+    info?: {
+        title?: string
+        desc?: string | JSX.Element
+        buttons?: InfoButtonType[]
+    }
+    detail?: {
+        title?: string
+        desc?: string | JSX.Element
+        reference?: false | {
+            desc?: string
+            uuid?: string
+            accepted?: string
+            updated?: string
+        }
+        buttons?: DetailButtonType[]
+    }
+    table?: {
+        headers: string[]
+        types: TableType[]
+    }
+}
+
+/* Extentions */
 type ReferenceType = false | {
-    desc: string
+    desc: string | ReactNode
     uuid: string
     accepted: string
     updated: string
@@ -100,7 +128,27 @@ interface ReferenceProps {
     reference: ReferenceType
 }
 
-/* Properties */
+export type InfoButtonType = {
+    action: 'manage' | 'necessary' | 'accept' | 'all'
+    label: string
+    schema: 'week' | 'strong'
+}
+
+export type DetailButtonType = {
+    action: 'necessary' | 'accept' | 'all'
+    label: string
+    schema: 'week' | 'strong'
+}
+
+export type TableType = {
+    for: string
+    title: string
+    desc: string
+    body?: TableRowType[]
+}
+
+export type TableRowType = string[]
+
 /* Consent */
 export interface ConsentProps {
     consent: ConsentType
@@ -111,16 +159,20 @@ export interface ConsentOpenConsent {
 }
 
 export interface ConsentPausedProps {
-    icon: ReactNode
     title: string
     desc: string
+    icon: string
 }
 
 /* Info */
 export interface ConsentInfoProps {
     show: boolean
     force: boolean
-    content: any
+    content: {
+        title: string
+        desc: string | JSX.Element
+        buttons: InfoButtonType[]
+    }
     openManage: () => void
     support: boolean
 }
@@ -130,13 +182,7 @@ export interface ConsentInfoWrapperProps extends HTMLAttributes<HTMLElement> {
 }
 
 export interface ConsentInfoButtonsProps {
-    buttons: [
-        {
-            action: string,
-            label: string,
-            schema: string
-        }
-    ]
+    buttons: InfoButtonType[]
     openManage: () => void
 }
 
@@ -145,9 +191,9 @@ export interface ConsentDetailProps {
     show: boolean
     content: {
         title: string
-        desc: string
+        desc: string | JSX.Element
         reference: () => ReferenceType
-        buttons: any
+        buttons: DetailButtonType[]
     },
     table: any
     support: boolean
@@ -163,7 +209,7 @@ export interface ConsentDetailHeaderProps {
 }
 
 export interface ConsentDetailBodyProps extends ReferenceProps {
-    desc: string
+    desc: string | JSX.Element
     table: any
 }
 
@@ -171,4 +217,8 @@ export interface ConsentDetailBodyCollapsibleProps {
     type: any
     tableHeaders: any
     typeDefault: string
+}
+
+export interface ConsentDetailFooterProps {
+    buttons: DetailButtonType[]
 }

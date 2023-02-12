@@ -12,9 +12,10 @@ export const Consent: React.FC<ConsentProps> = ({ consent }) => {
     const [infoDisplayed, setInfoDisplayed] = useState(false)
     const [detailDisplayed, setDetailDisplayed] = useState(false)
 
+    /* Default Values */
     const _this = {
         support: consent?.support ?? true,
-        theme: ['light', 'dark', 'high-contrast', 'custom'].includes(consent?.theme) ? consent?.theme : 'light',
+        theme: ['light', 'dark', 'high-contrast', 'custom'].includes(consent?.theme || '') ? consent?.theme : 'light',
         first: consent?.first || 'info',
         force: consent?.force ?? false,
         icon: consent?.icon || 'cookie',
@@ -28,7 +29,18 @@ export const Consent: React.FC<ConsentProps> = ({ consent }) => {
         info: {
             title: consent?.info?.title || 'We use cookies!',
             desc: consent?.info?.desc || <>Welcome! To enhance your experience, we use cookies and comply with GDPR. For more information feel free to check out our <a href="#" style={{textDecoration: 'underline', fontWeight: 500}}>privacy policy</a>.</>,
-            buttons: consent?.info?.buttons || []
+            buttons: consent?.info?.buttons || [
+                {
+                    action: 'manage',
+                    label: 'Manage settings',
+                    schema: 'week'
+                },
+                {
+                    action: 'all',
+                    label: 'Accept all cookies',
+                    schema: 'strong'
+                }
+            ]
         },
         detail: {
             title: consent?.detail?.title || 'Manage your consent settings',
@@ -36,7 +48,7 @@ export const Consent: React.FC<ConsentProps> = ({ consent }) => {
             reference: () => {
                 const reference = consent?.detail?.reference ?? true
             
-                if (typeof reference == 'object' || reference == true) {
+                if ((typeof reference == 'object' || reference == true) && consent?.detail?.reference !== false) {
                     return {
                         desc: consent?.detail?.reference?.desc || 'Please provide the below information when you hand in a request about cookies.',
                         uuid: consent?.detail?.reference?.uuid || 'UUID',
@@ -47,11 +59,27 @@ export const Consent: React.FC<ConsentProps> = ({ consent }) => {
                     return false
                 }
             },
-            buttons: consent?.detail?.buttons || []
+            buttons: consent?.detail?.buttons || [
+                {
+                    action: 'necessary',
+                    label: 'Necessary',
+                    schema: 'week'
+                },
+                {
+                    action: 'accept',
+                    label: 'Accept',
+                    schema: 'week'
+                },
+                {
+                    action: 'all',
+                    label: 'All',
+                    schema: 'strong'
+                }
+            ]
         },
         table: {
-            headers: consent?.table.headers || {},
-            types: consent?.table.types || [],
+            headers: consent?.table?.headers || {},
+            types: consent?.table?.types || [],
             typeDefault: /*options.typeDefault ||*/ 'necessary'
         }
     }

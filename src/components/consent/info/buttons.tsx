@@ -1,5 +1,5 @@
 import React from 'react'
-import { ConsentInfoButtonsProps } from '../../../types'
+import { ConsentInfoButtonsProps, InfoButtonType } from '../../../types'
 import { useCookifyProvider } from '../../../context/cookifyContext'
 
 export const Buttons: React.FC<ConsentInfoButtonsProps> = ({ buttons, openManage }) => {
@@ -7,7 +7,7 @@ export const Buttons: React.FC<ConsentInfoButtonsProps> = ({ buttons, openManage
 
     return (
         <div className="flex flex-col gap-3">
-            {buttons.map((button: any, index: number) => {
+            {buttons.map((button: InfoButtonType, index: number) => {
                 let action, schema
 
                 switch (button.action) {
