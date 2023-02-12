@@ -13,6 +13,9 @@ export const Collapsible: React.FC<ConsentDetailBodyCollapsibleProps> = ({
 	typeDefault
 }) => {
 	const [collapse, setCollapse] = useState(false)
+	const _this = {
+		body: type.body || []
+	}
 
 	const handleToogleCollapse = () => {
 		setCollapse(!collapse)
@@ -33,9 +36,9 @@ export const Collapsible: React.FC<ConsentDetailBodyCollapsibleProps> = ({
 						{collapse ? <IconChevronUpSolid /> : <IconChevronDownSolid />}
 					</span>
 					{type.title}
-					{type.body?.length > 0 && (
+					{_this.body?.length > 0 && (
 						<span className="inline-block relative bg-[var(--c-c-bar-badge-bg-color)] rounded-[var(--c-c-bar-badge-border-radius)] px-2 py-0.5 text-xs text-[var(--c-c-bar-badge-text-color)] font-bold leading-4">
-							{type.body.length}
+							{_this.body.length}
 						</span>
 					)}
 				</div>
@@ -65,7 +68,7 @@ export const Collapsible: React.FC<ConsentDetailBodyCollapsibleProps> = ({
 						<p>{type.desc}</p>
 					</div>
 
-					{type.body?.length > 0 && (
+					{_this.body?.length > 0 && (
 						<div className="">
 							<table className="w-full border-t-2 border-[var(--c-c-extend-border-color)]">
 								<thead>
@@ -82,12 +85,12 @@ export const Collapsible: React.FC<ConsentDetailBodyCollapsibleProps> = ({
 									</tr>
 								</thead>
 								<tbody>
-									{type.body.map((row: TableRowType, index: number) => (
+									{_this.body.map((row: TableRowType, index: number) => (
 										<tr
 											key={index}
 											className={
 												'max-md:px-3 max-md:py-2 max-md:flex max-md:flex-col max-md:gap-1 hover:bg-[var(--c-c-extend-table-bg-hover-color)] border-[var(--c-c-extend-border-color)] ' +
-												(index + 1 < type.body.length ? 'border-b-2' : '')
+												(index + 1 < _this.body.length ? 'border-b-2' : '')
 											}
 										>
 											{row.map((col: string, index: number) => (

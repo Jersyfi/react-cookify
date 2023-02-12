@@ -97,7 +97,7 @@ type ConsentType = {
 	}
 	table?: {
 		headers: string[]
-		types: TableType[]
+		types: TableTypesType[]
 	}
 }
 
@@ -127,11 +127,24 @@ export type DetailButtonType = {
 	schema: 'week' | 'strong'
 }
 
-export type TableType = {
+type TableType = {
+	headers: string[]
+	types: TableTypesType[]
+	typeDefault: string
+}
+
+export type TableTypesType = {
 	for: string
 	title: string
 	desc: string
 	body?: TableRowType[]
+}
+
+export type TableTypesWithBodyType = {
+	for: string
+	title: string
+	desc: string
+	body: TableRowType[]
 }
 
 export type TableRowType = string[]
@@ -186,11 +199,7 @@ export interface ConsentDetailProps {
 		reference: () => ReferenceType
 		buttons: DetailButtonType[]
 	}
-	table: {
-		headers: string[]
-		types: TableType[]
-		typeDefault: string
-	}
+	table: TableType
 	support: boolean
 }
 
@@ -205,16 +214,11 @@ export interface ConsentDetailHeaderProps {
 
 export interface ConsentDetailBodyProps extends ReferenceProps {
 	desc: string | JSX.Element
-	table: TableType[]
+	table: TableType
 }
 
 export interface ConsentDetailBodyCollapsibleProps {
-	type: {
-		for: string
-		title: string
-		desc: string
-		body: TableRowType[]
-	}
+	type: TableTypesType
 	tableHeaders: string[]
 	typeDefault: string
 }
