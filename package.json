@@ -1,11 +1,12 @@
 {
   "name": "react-cookify",
-  "version": "1.0.0",
+  "version": "2.0.0-beta.1",
   "description": "Simple, customizable open source cookie consent banner for GDPR law",
   "scripts": {
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
     "build": "rollup -c --bundleConfigAsCjs",
-    "build:watch": "rollup -c --bundleConfigAsCjs -w"
+    "build:watch": "rollup -c --bundleConfigAsCjs -w",
+    "format": "prettier --ignore-path .gitignore --write src/**/*.{js,jsx,ts,tsx,json}"
   },
   "repository": {
     "type": "git",
@@ -34,17 +35,23 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^24.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
-    "@rollup/plugin-terser": "^0.4.0",
+    "@rollup/plugin-terser": "^0.3.0",
     "@rollup/plugin-typescript": "^11.0.0",
     "@types/jest": "^29.2.5",
     "@types/react": "^18.0.26",
     "@typescript-eslint/eslint-plugin": "^5.48.0",
     "@typescript-eslint/parser": "^5.48.0",
+    "autoprefixer": "^10.4.13",
     "eslint": "^8.31.0",
+    "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-react": "^7.31.11",
+    "postcss": "^8.4.21",
+    "prettier": "^2.8.4",
     "rollup": "^3.9.1",
     "rollup-plugin-dts": "^5.1.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "tailwindcss": "^3.2.4",
     "typescript": "^4.9.4"
   },
   "module": "dist/index.js",

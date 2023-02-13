@@ -1,95 +1,228 @@
-import { ReactNode, InputHTMLAttributes } from 'react'
+import { ReactNode, HTMLAttributes, InputHTMLAttributes } from 'react'
 import { CookieAttributes } from 'js-cookie'
 
-/**
- * Type for the ConsentObjectData
- * 
- * @type ConsentObjectDataType
- * @member {boolean} [key: string]
+/*
+ * Core
  */
+
 export type ConsentObjectDataType = {
-    [key: string]: boolean
+	[key: string]: boolean
 }
 
-/**
- * Type for the consentObject
- * 
- * @type ConsentObjectType
- * @member {boolean} viewed
- * @member {ConsentObjectDataType} data
- */
 export type ConsentObjectType = {
-    viewed: boolean,
-    data: ConsentObjectDataType,
-    //uuid
-    //created_at: Date
-    //updated_at: Date
-    //revision: 0
+	viewed: boolean
+	data: ConsentObjectDataType
+	uuid: string
+	created_at: Date
+	updated_at: Date
+	revision: number
 }
 
-/**
- * Props for the CookifyContext
- * 
- * @interface CookifyContextProps
- * @member {ConsentObjectType} consentObject
- * @member {boolean} consentDisplayed
- * @member {function} handleConsentDisplayedChange
- * @member {number} consentTracking
- * @member {function} actionCheckbox
- * @member {function} actionAccept
- * @member {function} actionNecessary
- * @member {function} actionAll
- */
 export interface CookifyContextProps {
-    consentObject: ConsentObjectType,
-    consentDisplayed: boolean,
-    handleConsentDisplayedChange: (newConsentDisplayed: boolean) => void,
-    consentTracking: number,
-    actionCheckbox: (type: string) => void,
-    actionAccept: () => void,
-    actionNecessary: () => void,
-    actionAll: () => void,
+	consentObject: ConsentObjectType
+	consentDisplayed: boolean
+	handleConsentDisplayedChange: (newConsentDisplayed: boolean) => void
+	consentTracking: number
+	actionCheckbox: (type: string) => void
+	actionAccept: () => void
+	actionNecessary: () => void
+	actionAll: () => void
 }
 
-/**
- * Type for the options in useCookify
- * 
- * @type CookifyOptionsType
- * @member {string} name
- * @member {boolean} saveWithChange
- * @member {boolean} saveByDefault
- * @member {string} typeDefault
- * @member {ConsentObjectDataType} types
- * @member {CookieAttributes} jscookie
- */
 export type CookifyOptionsType = {
-    name?: string,
-    store?: ['cookies', 'storage'],
-    saveWithChange?: boolean,
-    saveByDefault?: boolean,
-    typeDefault?: string,
-    types?: ConsentObjectDataType,
-    jscookie?: CookieAttributes
+	name?: string
+	store?: ['cookies', 'storage']
+	saveWithChange?: boolean
+	saveByDefault?: boolean
+	typeDefault?: string
+	types?: ConsentObjectDataType
+	jscookie?: CookieAttributes
+	revision?: number
 }
 
-/**
- * Props for the CookifyProvider
- * 
- * @interface CookifyProviderProps
- * @member {CookifyOptionsType} options
- * @member {ReactNode} children
- */
 export interface CookifyProviderProps {
-    options: CookifyOptionsType,
-    children: ReactNode
+	options: CookifyOptionsType
+	children: ReactNode
 }
 
-/**
- * Props for CookifyInput Component
- * 
- * @interface CookifyInputProps
- * @member {string} name
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+	name: string
+}
+
+/*
+ * Consent
  */
-export interface CookifyInputProps extends InputHTMLAttributes<HTMLInputElement> {
-    name: string
+
+/* Initialization */
+export interface CookifyConsentProps {
+	settings: ConsentSettingsType
+	children: ReactNode
+}
+
+export type ConsentSettingsType = {
+	options: CookifyOptionsType
+	consent: ConsentType
+}
+
+type ConsentType = {
+	support?: boolean
+	theme?: 'light' | 'dark' | 'high-contrast' | 'custom'
+	first?: 'info' | 'detail'
+	force?: boolean
+	icon?: 'cookie' | 'fingerprint' | string
+	reopen?: boolean
+	paused?: {
+		title?: string
+		desc?: string
+		icon?: string
+		url?: string
+	}
+	info?: {
+		title?: string
+		desc?: string | JSX.Element
+		buttons?: InfoButtonType[]
+	}
+	detail?: {
+		title?: string
+		desc?: string | JSX.Element
+		reference?:
+			| false
+			| {
+					desc?: string
+					uuid?: string
+					accepted?: string
+					updated?: string
+			  }
+		buttons?: DetailButtonType[]
+	}
+	table?: {
+		headers: string[]
+		types: TableTypesType[]
+	}
+}
+
+/* Extentions */
+type ReferenceType =
+	| false
+	| {
+			desc: string | ReactNode
+			uuid: string
+			accepted: string
+			updated: string
+	  }
+
+interface ReferenceProps {
+	reference: ReferenceType
+}
+
+export type InfoButtonType = {
+	action: 'manage' | 'necessary' | 'accept' | 'all'
+	label: string
+	schema: 'week' | 'strong'
+}
+
+export type DetailButtonType = {
+	action: 'necessary' | 'accept' | 'all'
+	label: string
+	schema: 'week' | 'strong'
+}
+
+type TableType = {
+	headers: string[]
+	types: TableTypesType[]
+	typeDefault: string
+}
+
+export type TableTypesType = {
+	for: string
+	title: string
+	desc: string
+	body?: TableRowType[]
+}
+
+export type TableTypesWithBodyType = {
+	for: string
+	title: string
+	desc: string
+	body: TableRowType[]
+}
+
+export type TableRowType = string[]
+
+/* Consent */
+export interface ConsentProps {
+	consent: ConsentType
+}
+
+export interface ConsentSupportPorps {
+	display: boolean
+}
+
+export interface ConsentOpenConsent {
+	icon: string
+}
+
+export interface ConsentPausedProps {
+	title: string
+	desc: string
+	icon: string
+}
+
+/* Info */
+export interface ConsentInfoProps {
+	show: boolean
+	force: boolean
+	content: {
+		title: string
+		desc: string | JSX.Element
+		buttons: InfoButtonType[]
+	}
+	openManage: () => void
+	support: boolean
+}
+
+export interface ConsentInfoWrapperProps extends HTMLAttributes<HTMLElement> {
+	children: ReactNode
+}
+
+export interface ConsentInfoButtonsProps {
+	buttons: InfoButtonType[]
+	openManage: () => void
+}
+
+/* Detail */
+export interface ConsentDetailProps {
+	show: boolean
+	content: {
+		title: string
+		desc: string | JSX.Element
+		reference: () => ReferenceType
+		buttons: DetailButtonType[]
+	}
+	table: TableType
+	support: boolean
+}
+
+export interface ConsentDetailWrapperProps extends HTMLAttributes<HTMLElement> {
+	children: ReactNode
+}
+
+export interface ConsentDetailHeaderProps {
+	title: string
+	support: boolean
+}
+
+export interface ConsentDetailBodyProps extends ReferenceProps {
+	desc: string | JSX.Element
+	table: TableType
+}
+
+export interface ConsentDetailBodyCollapsibleProps {
+	type: TableTypesType
+	tableHeaders: string[]
+	typeDefault: string
+}
+
+export interface ConsentDetailFooterProps {
+	buttons: DetailButtonType[]
 }
