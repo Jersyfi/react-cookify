@@ -1,6 +1,6 @@
 {
   "name": "react-cookify",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.1-beta.1",
   "description": "Simple, customizable open source cookie consent banner for GDPR law",
   "scripts": {
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
