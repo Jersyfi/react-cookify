@@ -52,7 +52,7 @@ export const Consent: React.FC<ConsentProps> = ({ consent }) => {
 				},
 				{
 					action: 'all',
-					label: 'Accept all cookies',
+					label: 'Accept all',
 					schema: 'strong'
 				}
 			]
@@ -93,17 +93,17 @@ export const Consent: React.FC<ConsentProps> = ({ consent }) => {
 			buttons: consent?.detail?.buttons || [
 				{
 					action: 'necessary',
-					label: 'Necessary',
+					label: 'Only necessary',
 					schema: 'week'
 				},
 				{
 					action: 'accept',
-					label: 'Accept',
+					label: 'Accept selected',
 					schema: 'week'
 				},
 				{
 					action: 'all',
-					label: 'All',
+					label: 'Accept all',
 					schema: 'strong'
 				}
 			]
