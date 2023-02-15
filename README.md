@@ -21,7 +21,7 @@ react-cookify is essentially a set of npm packages.
 npm install react-cookify
 ```
 
-To view the complete documentation, please follow the link to [Cookify Docs](https://cookify.jersyfi.dev/).
+To view the complete documentation, please follow the link to [Cookify Docs v2.0](https://cookify.jersyfi.dev/).
 
 ## Framework Support & Features
 You can view all library languages and supported features [here](https://github.com/Jersyfi/cookify#framework-support--features).
