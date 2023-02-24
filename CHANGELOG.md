@@ -2,6 +2,13 @@
 
 All notable changes to `react-cookify` will be documented in this file.
 
+## v2.1.3 - 2023-02-14
+
+* Fixed type CookifyOptionsType where array was given to exact strings
+* Added option to change the background overlay color for the consent
+* Added correct support link to `cookify.jersyfi.dev`
+* Fixed table settings inside consent to skip headers 
+
 ## v2.0.0-beta.1 - 2023-02-12
 
 Skipped the work on the core function from v1 to v2 and included the build-in consent manager.

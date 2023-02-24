@@ -35,6 +35,7 @@
     --c-border-radius: 0.5rem;
     --c-bg-primary-color: rgb(255, 255, 255);
     --c-bg-secondary-color: rgb(243, 244, 246);
+    --c-bg-overlay-color: rgba(0,0,0,.3);
     /* Collapse */
     --c-c-bar-bg-color: rgb(209, 213, 219);
     --c-c-bar-bg-hover-color: rgb(182, 185, 191);
@@ -86,6 +87,7 @@
     --c-border-radius: 0.5rem;
     --c-bg-primary-color: rgb(20, 20, 20);
     --c-bg-secondary-color: rgb(0, 0, 0);
+    --c-bg-overlay-color: rgba(0,0,0,.3);
     /* Collapse */
     --c-c-bar-bg-color: rgb(70, 70, 70);
     --c-c-bar-bg-hover-color: rgb(80, 80, 80);
@@ -137,6 +139,7 @@
     --c-border-radius: 0rem;
     --c-bg-primary-color: rgb(0, 0, 0);
     --c-bg-secondary-color: rgb(0, 0, 0);
+    --c-bg-overlay-color: rgba(0,0,0,.3);
     /* Collapse */
     --c-c-bar-bg-color: rgb(255, 255, 255);
     --c-c-bar-bg-hover-color: rgb(255, 255, 255);

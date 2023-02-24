@@ -9,7 +9,7 @@ export const Support: React.FC<ConsentSupportPorps> = ({ display }) => {
 	return (
 		<div className="text-sm mt-1 text-[var(--c-text-by-color)]">
 			Powered by{' '}
-			<a className="font-bold" href="#">
+			<a className="font-bold" href="https://cookify.jersyfi.dev">
 				Cookify
 			</a>
 		</div>

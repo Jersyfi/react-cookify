@@ -31,7 +31,7 @@ export interface CookifyContextProps {
 
 export type CookifyOptionsType = {
 	name?: string
-	store?: ['cookies', 'storage']
+	store?: 'cookies' | 'storage'
 	saveWithChange?: boolean
 	saveByDefault?: boolean
 	typeDefault?: string
@@ -96,7 +96,7 @@ type ConsentType = {
 		buttons?: DetailButtonType[]
 	}
 	table?: {
-		headers: string[]
+		headers?: string[]
 		types: TableTypesType[]
 	}
 }

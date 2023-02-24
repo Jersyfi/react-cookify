@@ -13,7 +13,7 @@ export const Detail: React.FC<ConsentDetailProps> = ({
 }) => {
 	return (
 		<Wrapper
-			className={'fixed inset-0 z-10 bg-black/30 ' + (show ? '' : 'hidden')}
+			className={'fixed inset-0 z-10 bg-[var(--c-bg-overlay-color)]' + (show ? '' : ' hidden')}
 		>
 			<Header title={content.title} support={support} />
 
