@@ -2,6 +2,10 @@
 
 All notable changes to `react-cookify` will be documented in this file.
 
+## v2.1.4 - 2023-02-14
+
+* Fixed stupid mistake with wrong version number
+
 ## v2.1.3 - 2023-02-14
 
 * Fixed type CookifyOptionsType where array was given to exact strings
