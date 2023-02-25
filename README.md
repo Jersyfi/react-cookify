@@ -11,9 +11,6 @@ This React library provides a customizable, simple to use and also a headless so
 
 How to handle GDPR correctly can be found on [Cookies, the GDPR, and the ePrivacy Directive](https://gdpr.eu/cookies).
 
-## Preview
-View and test how Cookify works in either [Bootstrap](https://jersyfi.github.io/cookify/test/preview/bootstrap.html) or [Tailwind CSS](https://jersyfi.github.io/cookify/test/preview/tailwindcss.html).
-
 ## Documentation
 react-cookify is essentially a set of npm packages.
 
