@@ -14,7 +14,8 @@ export const Info: React.FC<ConsentInfoProps> = ({
 	return (
 		<Wrapper
 			className={
-				(force && 'fixed inset-0 z-10 bg-[var(--c-bg-overlay-color)]') + (show ? '' : ' hidden')
+				(force && 'fixed inset-0 z-10 bg-[var(--c-bg-overlay-color)]') +
+				(show ? '' : ' hidden')
 			}
 		>
 			<div>

@@ -65,7 +65,7 @@ export const Collapsible: React.FC<ConsentDetailBodyCollapsibleProps> = ({
 			>
 				<div className="bg-[var(--c-c-extend-bg-color)] rounded-b-[var(--c-c-extend-border-radius)] border-x-2 border-b-2 border-[var(--c-c-extend-border-color)] overflow-hidden text-[var(--c-c-extend-text-color)]">
 					<div className="p-3">
-						<p>{type.desc}</p>
+						<div>{type.desc}</div>
 					</div>
 
 					{_this.body?.length > 0 && (

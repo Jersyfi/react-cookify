@@ -136,7 +136,7 @@ type TableType = {
 export type TableTypesType = {
 	for: string
 	title: string
-	desc: string
+	desc: string | JSX.Element
 	body?: TableRowType[]
 }
 

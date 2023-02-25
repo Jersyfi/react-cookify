@@ -2,9 +2,11 @@
 
 All notable changes to `react-cookify` will be documented in this file.
 
-## v2.1.5 - Ongoing...
+## v2.1.7 - 2023-02-25
 
 * Deleted preview text in Readme
+* Changed the type of TableTypesType desc by adding JSX.Element to it
+* Changed the HTML Element from p to div to match the above change
 
 ## v2.1.4 - 2023-02-14
 
