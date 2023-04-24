@@ -2,6 +2,10 @@
 
 All notable changes to `react-cookify` will be documented in this file.
 
+## v2.1.8 - 2023-04-24
+
+* Updated dependencies
+
 ## v2.1.7 - 2023-02-25
 
 * Deleted preview text in Readme
